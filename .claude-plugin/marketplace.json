@@ -1,6 +1,6 @@
 {
   "name": "forge-state",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Local-first lab bench for open-source projects: mark a repo in Slack, nightly forge researches/builds/experiments/packages/publishes.",
   "owner": {
     "name": "David Olsson",
@@ -9,7 +9,8 @@
   "plugins": [
     {
       "name": "forge-state",
-      "version": "0.1.0",
+      "version": "0.1.1",
+      "description": "Lab bench for open-source projects. Mark a repo in Slack with 🧪; nightly, forge researches/builds/experiments/packages/publishes.",
       "source": "./plugin"
     }
   ]

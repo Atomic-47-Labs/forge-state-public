@@ -1,11 +1,12 @@
 {
   "name": "forge-state",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lab bench for open-source projects. Mark a repo in Slack with an emoji; nightly, forge researches, clones, builds it inside a sealed Docker sandbox, runs a real experiment, packages it into something runnable, and ships a writeup + deployable artifact. Build failures are kept as findings, not discarded.",
   "author": {
     "name": "David Olsson",
     "url": "https://atomic47.co"
   },
+  "repository": "https://github.com/atomic47/forge-state-public",
   "license": "MIT",
   "keywords": [
     "forge",
@@ -15,16 +16,5 @@
     "open-source",
     "lab-bench",
     "local-first"
-  ],
-  "skills": [
-    "skills/forge-state",
-    "skills/forge-harvester-slack",
-    "skills/forge-researcher",
-    "skills/forge-builder",
-    "skills/forge-experimenter",
-    "skills/forge-packager",
-    "skills/forge-reporter",
-    "skills/forge-publisher",
-    "skills/forge-orchestrator"
   ]
 }
