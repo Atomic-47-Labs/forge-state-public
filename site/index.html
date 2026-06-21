@@ -46,6 +46,48 @@
 <div class="deck">
 
 <!-- ============================ SLIDE 1 ============================ -->
+<!-- ============================ SLIDE 0 — INSTALL ============================ -->
+<section data-label="forge-state · install" data-speaker-notes="Install slide. Forge-state ships as a single Claude Code plugin distributed as a one-plugin marketplace. Both Claude Code (terminal CLI) and Claude Cowork (desktop and web) accept the same /plugin commands. Paste the two lines into either surface, restart, and the nine /forge-* skills appear. The public repo lives at atomic47/forge-state-public on GitHub." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:38px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 00 · Install</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title-lg);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">forge-<span style="color:var(--yellow);font-style:italic">state</span></h1>
+  <p class="rise3" style="font-family:var(--fh);font-weight:400;font-size:var(--t-sub);line-height:1.35;color:var(--dim);margin:32px 0 56px;max-width:36ch">A local-first lab bench for open-source projects — install in two lines.</p>
+  <div class="rise4" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1500px">
+    <div style="border:1px solid var(--yellow);background:linear-gradient(180deg,rgba(246,172,45,.06),rgba(246,172,45,.01));padding:30px 32px 28px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--yellow)">
+        <span style="width:9px;height:9px;background:var(--yellow)"></span>
+        <span>Claude Code · CLI</span>
+      </div>
+      <pre style="margin:0;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper);line-height:1.65;white-space:pre-wrap"><span style="color:var(--faint)">$</span> /plugin marketplace add <span style="color:var(--yellow)">atomic47/forge-state-public</span>
+<span style="color:var(--faint)">$</span> /plugin install <span style="color:var(--yellow)">forge-state@forge-state</span></pre>
+    </div>
+    <div style="border:1px solid var(--teal);background:linear-gradient(180deg,rgba(98,186,183,.06),rgba(98,186,183,.01));padding:30px 32px 28px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--teal)">
+        <span style="width:9px;height:9px;background:var(--teal)"></span>
+        <span>Claude Cowork · Desktop</span>
+      </div>
+      <pre style="margin:0;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper);line-height:1.65;white-space:pre-wrap"><span style="color:var(--faint)">›</span> /plugin marketplace add <span style="color:var(--teal)">atomic47/forge-state-public</span>
+<span style="color:var(--faint)">›</span> /plugin install <span style="color:var(--teal)">forge-state@forge-state</span></pre>
+    </div>
+  </div>
+  <div class="rise4" style="margin-top:42px;display:flex;gap:28px;align-items:center;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint);flex-wrap:wrap">
+    <a href="https://github.com/atomic47/forge-state-public" style="color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:3px">github.com/atomic47/forge-state-public</a>
+    <span style="color:var(--line2)">·</span>
+    <a href="https://forge-state.netlify.app" style="color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:3px">forge-state.netlify.app</a>
+    <span style="color:var(--line2)">·</span>
+    <span>MIT · sibling to desk-state · work-state · notella</span>
+  </div>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center"></div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 1 — THE NIGHT SHIFT ============================ -->
 <section data-label="The night shift" data-speaker-notes="You're already curious about more projects than you can ever try. forge-state is the night shift that does it for you: you flag the interesting ones with a single emoji, and by morning each one has been researched, built in a sealed sandbox, exercised with a real experiment, packaged into something runnable, and shipped as a writeup plus a deployable bundle. The artifact is reproducible because the environment that produced it is recorded down to the base-image digest." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:row;align-items:center;gap:80px;overflow:hidden;position:relative">
   <div style="flex:0 0 820px;display:flex;flex-direction:column">
     <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:44px">
@@ -686,9 +728,16 @@ bash scripts/init-facility.sh
     </div>
     <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title-lg);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0;max-width:16ch">Curiosity, <span style="color:var(--yellow);font-style:italic">compounded nightly.</span></h1>
     <p class="rise3" style="font-family:var(--fh);font-weight:400;font-size:var(--t-sub);line-height:1.35;color:var(--dim);margin:46px 0 0;max-width:26ch">You wake up to a built repo, a written report, and an artifact you can ship.</p>
-    <div class="rise4" style="margin-top:54px;display:flex;flex-direction:column;gap:14px">
-      <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper);display:flex;align-items:center;gap:14px"><span style="color:var(--yellow)">▸</span>/forge-orchestrator <span style="color:var(--yellow)">--once</span></div>
-      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint);padding-left:28px">prove the path on three to five repos before enabling the timer.</div>
+    <div class="rise4" style="margin-top:44px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--yellow);padding:4px 0 4px 18px">
+        <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--yellow)">Install · Claude Code or Cowork</div>
+        <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper);line-height:1.55"><span style="color:var(--faint)">›</span> /plugin marketplace add <span style="color:var(--yellow)">atomic47/forge-state-public</span><br><span style="color:var(--faint)">›</span> /plugin install <span style="color:var(--yellow)">forge-state@forge-state</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;border-left:2px solid var(--teal);padding:4px 0 4px 18px;margin-top:4px">
+        <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--teal)">Then run</div>
+        <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)"><span style="color:var(--faint)">›</span> /forge-orchestrator <span style="color:var(--teal)">--once</span></div>
+        <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint)">prove the path on three to five repos before enabling the timer.</div>
+      </div>
     </div>
   </div>
   <div class="rise4" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:22px">

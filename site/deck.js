@@ -13,9 +13,10 @@
       // Adjust footer progress dots: Nth marker becomes yellow 16x16 square, others 7x7 faint dots.
       var footer = s.querySelector('[data-progress]');
       if(footer){
-        var dots = footer.children;
-        for(var j=0;j<dots.length;j++){
-          var sp = dots[j];
+        // Regenerate `total` markers (idempotent on every init; supports any slide count).
+        footer.innerHTML = '';
+        for(var j=0;j<total;j++){
+          var sp = document.createElement('span');
           if(j===i){
             sp.style.width='16px'; sp.style.height='16px';
             sp.style.background = 'var(--yellow)';
@@ -23,6 +24,8 @@
             sp.style.width='7px'; sp.style.height='7px';
             sp.style.background = 'var(--faint)';
           }
+          sp.style.display = 'inline-block';
+          footer.appendChild(sp);
         }
       }
     });
