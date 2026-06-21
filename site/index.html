@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>forge-state — onboarding deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0E14; --ink2:#10151F; --ink3:#171D29;
+    --paper:#F4F3EF; --dim:#A9AEB8; --faint:#6B7280;
+    --line:#222937; --line2:#39414F;
+    --yellow:#F6AC2D; --teal:#62BAB7; --rose:#E0533D; --green:#7BA86B; --violet:#9293C6;
+    --fh:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --fm:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --px:130px;
+    --t-eyebrow:24px; --t-title:74px; --t-title-lg:92px; --t-sub:36px;
+    --t-body:28px; --t-small:24px; --t-mono:25px; --t-mono-sm:24px; --t-micro:18px;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:var(--ink); height:100%; }
+  body{ overflow:hidden; }
+  ::selection{ background:var(--paper); color:var(--ink); }
+  @keyframes rise{ from{ transform:translateY(16px); } to{ transform:translateY(0); } }
+  @media (prefers-reduced-motion:no-preference){
+    [data-deck-active] .rise{ animation:rise .6s cubic-bezier(0.22,0.61,0.36,1) both; }
+    [data-deck-active] .rise2{ animation:rise .6s cubic-bezier(0.22,0.61,0.36,1) .09s both; }
+    [data-deck-active] .rise3{ animation:rise .6s cubic-bezier(0.22,0.61,0.36,1) .18s both; }
+    [data-deck-active] .rise4{ animation:rise .6s cubic-bezier(0.22,0.61,0.36,1) .27s both; }
+  }
+  .deck > section{ width:1920px; height:1080px; }
+
+  /* Print: one slide per page for PDF export */
+  @media print{
+    html,body{ background:#fff; overflow:visible; height:auto; }
+    body{ overflow:visible; }
+    #deck-hud, #deck-help{ display:none !important; }
+    .deck{ position:static !important; transform:none !important; left:auto !important; top:auto !important; width:1920px !important; height:auto !important; display:block !important; }
+    .deck > section{ display:flex !important; page-break-after:always; break-after:page; width:1920px !important; height:1080px !important; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ============================ SLIDE 1 ============================ -->
+<section data-label="The night shift" data-speaker-notes="You're already curious about more projects than you can ever try. forge-state is the night shift that does it for you: you flag the interesting ones with a single emoji, and by morning each one has been researched, built in a sealed sandbox, exercised with a real experiment, packaged into something runnable, and shipped as a writeup plus a deployable bundle. The artifact is reproducible because the environment that produced it is recorded down to the base-image digest." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:row;align-items:center;gap:80px;overflow:hidden;position:relative">
+  <div style="flex:0 0 820px;display:flex;flex-direction:column">
+    <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:44px">
+      <span style="width:9px;height:9px;background:var(--yellow)"></span>
+      <span>§ 01 · The night shift</span>
+    </div>
+    <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title-lg);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0;max-width:14ch">Curiosity, <span style="color:var(--yellow);font-style:italic">automated.</span></h1>
+    <p class="rise3" style="font-family:var(--fh);font-weight:400;font-size:var(--t-sub);line-height:1.35;color:var(--dim);margin:46px 0 0;max-width:24ch">You mark a repo. Forge does the rest — by morning.</p>
+    <div class="rise4" style="margin-top:48px;display:flex;align-items:center;gap:18px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--faint)">
+      <span style="color:var(--yellow);font-size:22px">🧪</span>
+      <span>react · sleep · receive</span>
+    </div>
+  </div>
+  <div class="rise4" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:24px">
+    <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--faint);align-self:flex-start">Inbound — one Slack reaction</div>
+    <div style="width:100%;border:1px solid var(--line2);background:var(--ink2);padding:22px 24px;display:flex;align-items:center;gap:18px;font-family:var(--fh);font-size:var(--t-small);color:var(--dim)">
+      <span style="font-family:var(--fm);font-size:var(--t-micro);color:var(--teal)">#general</span>
+      <span style="flex:1;font-style:italic">"new SIMD grep — github.com/owner/ripgrep-turbo"</span>
+      <span style="font-size:28px">🧪</span>
+    </div>
+    <div style="color:var(--yellow);font-size:46px;letter-spacing:.1em">↓</div>
+    <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--faint);align-self:flex-start">Outbound — by morning</div>
+    <div style="display:flex;flex-direction:column;gap:12px;width:100%">
+      <div style="border:1px solid var(--line2);padding:16px 18px;display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)"><span style="color:var(--yellow);width:22px">▸</span>gist <span style="color:var(--faint);margin-left:auto;font-size:var(--t-micro)">env · commands · results</span></div>
+      <div style="border:1px solid var(--line2);padding:16px 18px;display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)"><span style="color:var(--teal);width:22px">▸</span>blog post <span style="color:var(--faint);margin-left:auto;font-size:var(--t-micro)">scsiwyg · auto</span></div>
+      <div style="border:1px solid var(--line2);padding:16px 18px;display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)"><span style="color:var(--violet);width:22px">▸</span>deploy bundle <span style="color:var(--faint);margin-left:auto;font-size:var(--t-micro)">Dockerfile + compose + RUN.md</span></div>
+      <div style="border:1px solid var(--line2);padding:16px 18px;display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)"><span style="color:var(--green);width:22px">▸</span>ghcr image <span style="color:var(--faint);margin-left:auto;font-size:var(--t-micro)">docker pull-able</span></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 2 ============================ -->
+<section data-label="Positioning" data-speaker-notes="Position forge-state as a lab bench, not a CI server. The nightly cadence matters because curiosity is bursty but evaluation needs to be patient. The sealed sandbox matters because untrusted code should never run in your shell. Treating build-failed as a finding matters because most of the truth about a project is whether a stranger can actually build it. And the deployable artifact matters because the question after 'does it work' is always 'can I run it myself'." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:48px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 02 · Positioning</span>
+  </div>
+  <div class="rise2" style="display:flex;align-items:center;gap:22px;margin-bottom:42px">
+    <div style="width:62px;height:62px;border:1.5px solid var(--yellow);display:flex;align-items:center;justify-content:center"><span style="color:var(--yellow);font-size:26px;line-height:1">◆</span></div>
+    <span style="font-family:var(--fh);font-weight:400;font-style:italic;font-size:32px;letter-spacing:.01em;color:var(--dim)">a lab bench, not a CI server</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title-lg);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0;max-width:20ch">A lab bench for <span style="color:var(--yellow);font-style:italic">open-source</span> projects.</h1>
+  <div class="rise3" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:60px">
+    <div style="border:1px solid var(--line2);padding:28px 26px;display:flex;flex-direction:column;gap:12px">
+      <div style="color:var(--yellow);font-size:19px;line-height:1">◆</div>
+      <div style="font-family:var(--fh);font-weight:600;font-size:25px;color:var(--paper)">Nightly cadence</div>
+      <p style="font-family:var(--fh);font-size:var(--t-small);line-height:1.45;color:var(--dim);margin:0">Curiosity is bursty; evaluation is patient. Mark all day, results by morning.</p>
+    </div>
+    <div style="border:1px solid var(--line2);padding:28px 26px;display:flex;flex-direction:column;gap:12px">
+      <div style="color:var(--teal);font-size:19px;line-height:1">◆</div>
+      <div style="font-family:var(--fh);font-weight:600;font-size:25px;color:var(--paper)">Sealed sandbox</div>
+      <p style="font-family:var(--fh);font-size:var(--t-small);line-height:1.45;color:var(--dim);margin:0">Untrusted code never runs in your shell. Docker, deny-egress, no secrets.</p>
+    </div>
+    <div style="border:1px solid var(--line2);padding:28px 26px;display:flex;flex-direction:column;gap:12px">
+      <div style="color:var(--rose);font-size:19px;line-height:1">◆</div>
+      <div style="font-family:var(--fh);font-weight:600;font-size:25px;color:var(--paper)">Build-failed is a finding</div>
+      <p style="font-family:var(--fh);font-size:var(--t-small);line-height:1.45;color:var(--dim);margin:0">"Does not build on a clean machine" is true and useful. Published, not discarded.</p>
+    </div>
+    <div style="border:1px solid var(--line2);padding:28px 26px;display:flex;flex-direction:column;gap:12px">
+      <div style="color:var(--violet);font-size:19px;line-height:1">◆</div>
+      <div style="font-family:var(--fh);font-weight:600;font-size:25px;color:var(--paper)">Deployable artifact</div>
+      <p style="font-family:var(--fh);font-size:var(--t-small);line-height:1.45;color:var(--dim);margin:0">Every success ships a Dockerfile + compose + image. You can run it tonight.</p>
+    </div>
+  </div>
+  <p class="rise4" style="font-family:var(--fh);font-size:var(--t-body);color:var(--dim);margin:54px 0 0;max-width:46ch">Local-first. <span style="color:var(--yellow)">No server.</span> Runs on your workstation; outputs leave the host — the facility doesn't.</p>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 3 ============================ -->
+<section data-label="The one idea" data-speaker-notes="The whole product in three words: mark, sandbox, ship. You mark a project with a single emoji reaction in Slack — that's the trigger, decoupled from sharing the link, so you can curate after posting. The sandbox is a fresh Docker container per repo with no secrets and registries-only egress. Ship means two artifacts cross the boundary: a reproducible writeup and a runnable bundle." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:30px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 03 · The one idea</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">Mark. Sandbox. Ship.</h1>
+  <div class="rise3" style="flex:1;display:flex;align-items:center;justify-content:center;gap:54px;margin-top:30px">
+    <div style="flex:0 0 420px;border:1.5px solid var(--yellow);background:linear-gradient(180deg,rgba(246,172,45,.10),rgba(246,172,45,.02));box-shadow:0 0 60px rgba(246,172,45,.18);padding:48px 36px;display:flex;flex-direction:column;gap:18px;text-align:center;min-height:340px">
+      <div style="font-family:var(--fh);font-weight:600;font-size:54px;letter-spacing:.04em;color:var(--yellow)">MARK</div>
+      <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--paper);line-height:1.4">React with 🧪 on a project post in <span style="font-family:var(--fm)">#general</span>.</div>
+      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint);margin-top:auto;line-height:1.55">the reaction is the trigger ·<br>self-only · idempotent</div>
+    </div>
+    <div style="color:var(--line2);font-size:54px">→</div>
+    <div style="flex:0 0 420px;border:1.5px solid var(--teal);background:linear-gradient(180deg,rgba(98,186,183,.08),rgba(98,186,183,.02));padding:48px 36px;display:flex;flex-direction:column;gap:18px;text-align:center;min-height:340px">
+      <div style="font-family:var(--fh);font-weight:600;font-size:54px;letter-spacing:.04em;color:var(--teal)">SANDBOX</div>
+      <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--paper);line-height:1.4">Docker data plane. Fresh per repo. No secrets cross the boundary.</div>
+      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint);margin-top:auto;line-height:1.55">classify · clone · build · run<br>deny-egress except registries</div>
+    </div>
+    <div style="color:var(--line2);font-size:54px">→</div>
+    <div style="flex:0 0 420px;border:1.5px solid var(--violet);background:linear-gradient(180deg,rgba(146,147,198,.08),rgba(146,147,198,.02));padding:48px 36px;display:flex;flex-direction:column;gap:18px;text-align:center;min-height:340px">
+      <div style="font-family:var(--fh);font-weight:600;font-size:54px;letter-spacing:.04em;color:var(--violet)">SHIP</div>
+      <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--paper);line-height:1.4">Gist + blog + deploy bundle + GHCR image. Two senses of deploy, both covered.</div>
+      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint);margin-top:auto;line-height:1.55">scrub secrets · emit events ·<br>publish on success and failure</div>
+    </div>
+  </div>
+  <p class="rise4" style="font-family:var(--fh);font-size:var(--t-body);color:var(--dim);margin:30px 0 0;max-width:none">The unit of work is an <span style="color:var(--yellow);font-style:italic">experiment</span> — one marked repo, carried through a fixed lifecycle.</p>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 4 ============================ -->
+<section data-label="Two-plane isolation" data-speaker-notes="This is the differentiator. The host is the control plane: it holds your Anthropic, Slack, GitHub, and scsiwyg secrets, runs the reasoning, talks to the outside world, and publishes. The container is the data plane: it has no secrets, can only reach package registries, and is the only place untrusted code ever executes. The boundary is crossed exactly one way — repo and commands in, logs and artifacts out. If you remember nothing else from this deck, remember this slide." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:28px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 04 · Two-plane isolation</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">Trusted secrets here. <span style="color:var(--teal)">Untrusted code there.</span></h1>
+  <div class="rise3" style="flex:1;display:grid;grid-template-columns:1fr 120px 1fr;gap:30px;margin-top:50px;align-items:stretch">
+    <div style="border:1.5px solid var(--yellow);background:linear-gradient(180deg,rgba(246,172,45,.08),rgba(246,172,45,.02));padding:34px 32px;display:flex;flex-direction:column;gap:18px">
+      <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--yellow)">Host · control plane</div>
+      <div style="font-family:var(--fh);font-weight:600;font-size:32px;color:var(--paper)">Reasons. Publishes. Holds secrets.</div>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px;font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">
+        <li>▸ Anthropic · Slack · GitHub · scsiwyg · GHCR keys</li>
+        <li>▸ orchestrator · harvester · researcher · reporter · publisher</li>
+        <li>▸ egress: api.anthropic.com, slack, github, scsiwyg, registries</li>
+        <li>▸ sops-age secret store, loaded at run start</li>
+      </ul>
+      <div style="margin-top:auto;font-family:var(--fm);font-size:var(--t-micro);color:var(--faint)">never executes untrusted code</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;font-family:var(--fm);font-size:var(--t-micro);color:var(--faint);letter-spacing:.1em;text-align:center">
+      <div style="color:var(--yellow);font-size:36px">→</div>
+      <div style="line-height:1.6">repo +<br>commands</div>
+      <div style="height:1px;width:100%;background:var(--line2);margin:8px 0"></div>
+      <div style="line-height:1.6">logs · exit<br>artifacts</div>
+      <div style="color:var(--teal);font-size:36px">←</div>
+    </div>
+    <div style="border:1.5px solid var(--teal);background:linear-gradient(180deg,rgba(98,186,183,.08),rgba(98,186,183,.02));padding:34px 32px;display:flex;flex-direction:column;gap:18px">
+      <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--teal)">Container · data plane</div>
+      <div style="font-family:var(--fh);font-weight:600;font-size:32px;color:var(--paper)">Builds. Runs. No secrets.</div>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px;font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">
+        <li>▸ fresh container per repo · torn down after read</li>
+        <li>▸ builder · experimenter · packager run here</li>
+        <li>▸ egress: package registries only (deny-default)</li>
+        <li>▸ CPU 4 · mem 8g · per-repo timeout 1800s</li>
+      </ul>
+      <div style="margin-top:auto;font-family:var(--fm);font-size:var(--t-micro);color:var(--faint)">never sees a host token</div>
+    </div>
+  </div>
+  <p class="rise4" style="font-family:var(--fh);font-size:var(--t-body);color:var(--dim);margin:30px 0 0">The boundary is crossed <span style="color:var(--yellow);font-style:italic">one way only.</span> Nothing trusted enters the container; nothing untrusted runs on the host.</p>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · two-plane isolation</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 5 ============================ -->
+<section data-label="The lifecycle" data-speaker-notes="Every experiment walks the same phase graph. Candidate comes from a marked Slack post. Researched captures what, who, why, comparables, and license. Cloned pins the commit so the build is reproducible. Built either succeeds or fails — and either outcome continues. A successful build goes through experiment, package, report, publish. A failed build short-circuits to report and publish — the failure itself is the deliverable. Phase is the queue: any non-terminal experiment is up next." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:30px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 05 · The lifecycle</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">Eight phases. One queue. Phase is the queue.</h1>
+  <div class="rise3" style="flex:1;display:flex;flex-direction:column;justify-content:center;margin-top:30px;gap:50px">
+    <!-- main happy path -->
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:nowrap;justify-content:center">
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--dim)">candidate</div>
+      <span style="color:var(--line2);font-size:28px">→</span>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">researched</div>
+      <span style="color:var(--line2);font-size:28px">→</span>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">cloned</div>
+      <span style="color:var(--line2);font-size:28px">→</span>
+      <div style="border:1.5px solid var(--yellow);background:rgba(246,172,45,.08);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--yellow);font-weight:600">built</div>
+      <span style="color:var(--line2);font-size:28px">→</span>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">experimented</div>
+      <span style="color:var(--line2);font-size:28px">→</span>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">packaged</div>
+      <span style="color:var(--line2);font-size:28px">→</span>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">reported</div>
+      <span style="color:var(--green);font-size:28px">→</span>
+      <div style="border:1.5px solid var(--green);background:rgba(123,168,107,.08);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--green);font-weight:600">published</div>
+    </div>
+    <!-- branch -->
+    <div style="display:flex;align-items:center;gap:14px;justify-content:center;padding-left:120px">
+      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint);letter-spacing:.1em;text-transform:uppercase">on build fail ↓</div>
+      <div style="border:1.5px solid var(--rose);background:rgba(224,83,61,.06);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--rose);font-weight:600">build-failed</div>
+      <span style="color:var(--rose);font-size:28px">→</span>
+      <div style="border:1px solid var(--rose);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">reported (the failure)</div>
+      <span style="color:var(--rose);font-size:28px">→</span>
+      <div style="border:1px solid var(--rose);padding:18px 22px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">published</div>
+    </div>
+  </div>
+  <p class="rise4" style="font-family:var(--fh);font-size:var(--t-body);color:var(--dim);margin:30px 0 0">Build-failed is <span style="color:var(--rose);font-style:italic">terminal-with-findings</span>, not a halt. The failure routes to a real published report.</p>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · phase = queue</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 6 ============================ -->
+<section data-label="The substrate" data-speaker-notes="The memory is a folder you can read. One file per experiment, with its research, its build log, its env manifest, its deploy bundle, its artifacts, and its report all sitting alongside. The activity log is append-only NDJSON — you never rewrite history, you add to it. No database. No dotfiles. The locked decision was visible 'forge/' with a visible 'state/' subfolder for machinery, so anyone with a file browser can poke around. Single-writer is enforced by a tiny lockfile." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:30px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 06 · The substrate</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">The memory is a folder you can read.</h1>
+  <div class="rise3" style="flex:1;display:flex;gap:50px;align-items:stretch;margin-top:46px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:22px">
+      <div style="border:1px solid var(--line2);padding:28px 30px;display:flex;flex-direction:column;gap:11px">
+        <div style="font-family:var(--fh);font-weight:600;font-size:28px;color:var(--paper);line-height:1.25">No database. No dotfiles.</div>
+        <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.45">Plain YAML and NDJSON on disk. Browsable from your file manager. <span style="color:var(--yellow)">Your stuff is your stuff.</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <div style="border:1px solid var(--line2);padding:10px 14px;font-family:var(--fm);font-size:var(--t-micro);color:var(--dim)">file-per-entity</div>
+        <div style="border:1px solid var(--line2);padding:10px 14px;font-family:var(--fm);font-size:var(--t-micro);color:var(--dim)">append-only NDJSON</div>
+        <div style="border:1px solid var(--line2);padding:10px 14px;font-family:var(--fm);font-size:var(--t-micro);color:var(--dim)">single-writer · forge.lock</div>
+        <div style="border:1px solid var(--line2);padding:10px 14px;font-family:var(--fm);font-size:var(--t-micro);color:var(--dim)">YAML canonical · index derived</div>
+        <div style="border:1px solid var(--line2);padding:10px 14px;font-family:var(--fm);font-size:var(--t-micro);color:var(--dim)">commit pinned at clone</div>
+        <div style="border:1px solid var(--line2);padding:10px 14px;font-family:var(--fm);font-size:var(--t-micro);color:var(--dim)">env manifest per build</div>
+      </div>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:24px 28px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;color:var(--faint)">single writer</div>
+        <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--paper);line-height:1.4">The nightly run is the only writer. <span style="font-family:var(--fm);color:var(--yellow)">forge.lock</span> refuses an overlapping run.</div>
+      </div>
+    </div>
+    <div style="flex:0 0 900px;border:1px solid var(--line2);background:var(--ink2);padding:34px 38px;font-family:var(--fm);font-size:var(--t-mono);line-height:1.6">
+      <div style="color:var(--yellow)">~/forge/</div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;manifest.yaml<span style="color:var(--faint)">&nbsp;&nbsp;&nbsp;&nbsp;← channels, images, surfaces, caps</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;experiments/</div>
+      <div style="color:var(--teal)">&nbsp;&nbsp;&nbsp;&nbsp;EXP-0007-ripgrep-turbo/</div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;experiment.yaml<span style="color:var(--faint)">&nbsp;&nbsp;← the canonical record</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;research.md</div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;build/</div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.txt</div>
+      <div style="color:var(--yellow)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;env.json<span style="color:var(--faint)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← reproducibility anchor</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deploy/<span style="color:var(--faint)">&nbsp;&nbsp;Dockerfile · compose.yaml · RUN.md</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;artifacts/<span style="color:var(--faint)">&nbsp;screenshots, sample outputs</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;report.md</div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;state/<span style="color:var(--faint)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visible — not .state/</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;state.json<span style="color:var(--faint)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;derived counts + cursor</span></div>
+      <div style="color:var(--yellow)">&nbsp;&nbsp;&nbsp;&nbsp;activity.ndjson<span style="color:var(--faint)">&nbsp;append-only history</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;cursor.yaml<span style="color:var(--faint)">&nbsp;&nbsp;&nbsp;per-channel last reaction</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;forge.lock<span style="color:var(--faint)">&nbsp;&nbsp;&nbsp;&nbsp;single-writer guard</span></div>
+      <div style="color:var(--paper)">&nbsp;&nbsp;&nbsp;&nbsp;logs/run-YYYY-MM-DD.txt</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · visible facility</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 7 ============================ -->
+<section data-label="Nine skills" data-speaker-notes="Nine skills. Eight are pure single-purpose workers; the orchestrator is a thin router that holds no state. Every skill routes its reads and writes through forge-state — no skill writes the substrate directly. That discipline is what keeps the system predictable as it grows. Group them by job: substrate, intake, research, build-and-run, ship, and the conductor on top." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:28px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 07 · Nine skills</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">9 skills. Each does exactly one job.</h1>
+  <div class="rise3" style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:26px;margin-top:46px">
+    <!-- Substrate -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="border-top:3px solid var(--yellow);padding-top:12px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.16em;text-transform:uppercase;color:var(--yellow)">Substrate</div>
+      <div style="border:1.5px solid var(--yellow);background:rgba(246,172,45,.05);padding:18px 18px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--yellow);font-weight:600">forge-state</div>
+        <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">The spine. The only writer to disk; every other skill routes through it.</div>
+      </div>
+    </div>
+    <!-- Intake -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="border-top:3px solid var(--teal);padding-top:12px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.16em;text-transform:uppercase;color:var(--teal)">Intake</div>
+      <div style="border:1px solid var(--line2);padding:18px 18px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">forge-harvester-slack</div>
+        <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">Drains 🧪 reactions in <span style="font-family:var(--fm)">#general</span> into candidates; advances the cursor.</div>
+      </div>
+    </div>
+    <!-- Research -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="border-top:3px solid var(--violet);padding-top:12px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.16em;text-transform:uppercase;color:var(--violet)">Research</div>
+      <div style="border:1px solid var(--line2);padding:18px 18px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">forge-researcher</div>
+        <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">Fills what / who / why / comparables / license. Writes <span style="font-family:var(--fm)">research.md</span>.</div>
+      </div>
+    </div>
+    <!-- Build & Run -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="border-top:3px solid var(--rose);padding-top:12px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.16em;text-transform:uppercase;color:var(--rose)">Build &amp; Run</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div style="border:1px solid var(--line2);padding:14px 12px;display:flex;flex-direction:column;gap:5px"><div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">builder</div><div style="font-family:var(--fh);font-size:var(--t-micro);color:var(--dim);line-height:1.35">clone · classify · build · env.json</div></div>
+        <div style="border:1px solid var(--line2);padding:14px 12px;display:flex;flex-direction:column;gap:5px"><div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">experimenter</div><div style="font-family:var(--fh);font-size:var(--t-micro);color:var(--dim);line-height:1.35">template · run · observe</div></div>
+        <div style="border:1px solid var(--line2);padding:14px 12px;display:flex;flex-direction:column;gap:5px"><div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">packager</div><div style="font-family:var(--fh);font-size:var(--t-micro);color:var(--dim);line-height:1.35">deploy/ + push to GHCR</div></div>
+      </div>
+    </div>
+    <!-- Ship -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="border-top:3px solid var(--green);padding-top:12px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.16em;text-transform:uppercase;color:var(--green)">Ship</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="border:1px solid var(--line2);padding:14px 12px;display:flex;flex-direction:column;gap:5px"><div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">reporter</div><div style="font-family:var(--fh);font-size:var(--t-micro);color:var(--dim);line-height:1.35">composes report.md (success &amp; failure)</div></div>
+        <div style="border:1px solid var(--line2);padding:14px 12px;display:flex;flex-direction:column;gap:5px"><div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)">publisher</div><div style="font-family:var(--fh);font-size:var(--t-micro);color:var(--dim);line-height:1.35">gist · blog · work-state event · scrub</div></div>
+      </div>
+    </div>
+    <!-- Conductor -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="border-top:3px solid var(--paper);padding-top:12px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.16em;text-transform:uppercase;color:var(--paper)">Conductor</div>
+      <div style="border:1.5px solid var(--paper);background:rgba(244,243,239,.04);padding:18px 18px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper);font-weight:600">▸ forge-orchestrator</div>
+        <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">Nightly queue walk; thin router; <span style="font-family:var(--fm)">--once</span> + <span style="font-family:var(--fm)">--dry-run</span>.</div>
+      </div>
+    </div>
+  </div>
+  <p class="rise4" style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);margin:22px 0 0">No skill writes the substrate directly — every read and write routes through <span style="color:var(--yellow)">forge-state</span>.</p>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · 9 skills</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 8 ============================ -->
+<section data-label="The sandbox" data-speaker-notes="The sandbox is what makes any of this safe. Docker Desktop is the cross-platform common denominator on mac and Windows. The builder classifies the repo and picks a per-language base image — node, python, go, rust, or a generic Ubuntu fallback. Egress is deny-by-default; only package registries get through. CPU, memory, and per-repo wall-clock are capped from the manifest. Containers are fresh per repo and torn down once results are read. The env manifest — base image digest, runtime versions, exact commands — is the reproducibility anchor that the published gist depends on." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:30px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 08 · The sandbox</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">Disposable. Capped. <span style="color:var(--teal)">Reproducible.</span></h1>
+  <div class="rise3" style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:46px">
+    <div style="border:1.5px solid var(--teal);background:linear-gradient(180deg,rgba(98,186,183,.06),rgba(98,186,183,.01));padding:32px 30px;display:flex;flex-direction:column;gap:18px">
+      <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.2em;text-transform:uppercase;color:var(--teal)">Container · per repo · disposable</div>
+      <div style="font-family:var(--fh);font-weight:600;font-size:30px;color:var(--paper)">Docker, deny-egress, capped.</div>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px;font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.45">
+        <li><span style="color:var(--teal);font-family:var(--fm);width:24px;display:inline-block">▸</span>Per-language base: <span style="font-family:var(--fm);color:var(--paper)">node:20 · python:3.12 · go:1.22 · rust:1.79 · ubuntu:24.04</span></li>
+        <li><span style="color:var(--teal);font-family:var(--fm);width:24px;display:inline-block">▸</span>Egress: <span style="color:var(--paper)">package registries only</span> (deny-default; no host secrets, no open internet)</li>
+        <li><span style="color:var(--teal);font-family:var(--fm);width:24px;display:inline-block">▸</span>Caps: <span style="font-family:var(--fm);color:var(--paper)">cpu=4 · mem=8g · per_repo_timeout_s=1800 · night_budget_s=14400</span></li>
+        <li><span style="color:var(--teal);font-family:var(--fm);width:24px;display:inline-block">▸</span>Fresh container per repo; torn down after results are read. No reuse.</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.2em;text-transform:uppercase;color:var(--faint)">build/env.json — the reproducibility anchor</div>
+      <pre style="margin:0;background:var(--ink2);border:1px solid var(--line2);padding:26px 28px;font-family:var(--fm);font-size:21px;line-height:1.5;color:var(--paper);overflow:hidden">{
+  <span style="color:var(--teal)">"image_base"</span>: <span style="color:var(--yellow)">"rust:1.79"</span>,
+  <span style="color:var(--teal)">"image_digest"</span>: <span style="color:var(--yellow)">"sha256:b1a4…e9c2"</span>,
+  <span style="color:var(--teal)">"runtimes"</span>: { <span style="color:var(--teal)">"rustc"</span>: <span style="color:var(--yellow)">"1.79.0"</span>,
+                <span style="color:var(--teal)">"cargo"</span>: <span style="color:var(--yellow)">"1.79.0"</span> },
+  <span style="color:var(--teal)">"commands"</span>: [ <span style="color:var(--yellow)">"cargo build --release"</span> ],
+  <span style="color:var(--teal)">"exit_code"</span>: <span style="color:var(--paper)">0</span>,
+  <span style="color:var(--teal)">"duration_s"</span>: <span style="color:var(--paper)">142</span>,
+  <span style="color:var(--teal)">"os"</span>: <span style="color:var(--yellow)">"linux/amd64"</span>
+}</pre>
+      <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.45">The gist embeds this verbatim. A stranger on a different machine can rerun the exact build — same image, same commands, same outcome.</div>
+    </div>
+  </div>
+  <p class="rise4" style="font-family:var(--fh);font-size:var(--t-body);color:var(--dim);margin:30px 0 0">Reproducibility is the <span style="color:var(--yellow);font-style:italic">anchor.</span> Without env.json, the gist is a story; with it, the gist is a recipe.</p>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · sandbox = data plane</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 9 ============================ -->
+<section data-label="Experiment taxonomy" data-speaker-notes="The mode is hybrid: classify the repo, pick a template, improvise within the template's bounds. Templates keep the experimenter from flailing; improvisation keeps it useful. Six types cover almost everything you'll mark — CLI, library, web app, MCP server, long-running service, and ML model. The builder already inspects the tree to choose a base image, so classification is its job; the experimenter just consumes the type and picks the matching template." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:30px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 09 · Experiment taxonomy</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">Six types. One template each. Hybrid mode.</h1>
+  <div class="rise3" style="flex:1;display:flex;flex-direction:column;margin-top:40px;border:1px solid var(--line2)">
+    <div style="display:grid;grid-template-columns:200px 1fr 1.4fr;background:var(--ink2);border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;color:var(--faint)">
+      <div style="padding:18px 22px;border-right:1px solid var(--line2)">Type</div>
+      <div style="padding:18px 22px;border-right:1px solid var(--line2)">Detection signal</div>
+      <div style="padding:18px 22px">Experiment template</div>
+    </div>
+    <div style="display:grid;grid-template-columns:200px 1fr 1.4fr;border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-mono-sm)">
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--yellow);font-weight:600">cli</div>
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--dim)">binary entrypoint, <span style="color:var(--paper)">bin/</span>, argparse / clap</div>
+      <div style="padding:20px 22px;color:var(--paper)">run against sample input; compare to a named comparable</div>
+    </div>
+    <div style="display:grid;grid-template-columns:200px 1fr 1.4fr;border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-mono-sm)">
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--teal);font-weight:600">library</div>
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--dim)">package manifest, no entrypoint</div>
+      <div style="padding:20px 22px;color:var(--paper)">20-line harness exercising the headline API</div>
+    </div>
+    <div style="display:grid;grid-template-columns:200px 1fr 1.4fr;border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-mono-sm)">
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--violet);font-weight:600">webapp</div>
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--dim)">dev server, framework manifest</div>
+      <div style="padding:20px 22px;color:var(--paper)">boot, hit health / route, screenshot</div>
+    </div>
+    <div style="display:grid;grid-template-columns:200px 1fr 1.4fr;border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-mono-sm)">
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--green);font-weight:600">mcp</div>
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--dim)">MCP server manifest / SDK dep</div>
+      <div style="padding:20px 22px;color:var(--paper)">connect, list tools, call one</div>
+    </div>
+    <div style="display:grid;grid-template-columns:200px 1fr 1.4fr;border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-mono-sm)">
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--rose);font-weight:600">service</div>
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--dim)">Dockerfile, daemon, port bind</div>
+      <div style="padding:20px 22px;color:var(--paper)">compose up, probe the port</div>
+    </div>
+    <div style="display:grid;grid-template-columns:200px 1fr 1.4fr;font-family:var(--fm);font-size:var(--t-mono-sm)">
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--paper);font-weight:600">model</div>
+      <div style="padding:20px 22px;border-right:1px solid var(--line2);color:var(--dim)">notebook, weights, ML deps</div>
+      <div style="padding:20px 22px;color:var(--paper)">load, run one inference on a fixture</div>
+    </div>
+  </div>
+  <p class="rise4" style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);margin:20px 0 0">Classification belongs to the <span style="color:var(--yellow)">builder</span> (it already inspects the tree). The <span style="color:var(--teal)">experimenter</span> consumes the type.</p>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · classify → template → improvise</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 10 ============================ -->
+<section data-label="Build-failed is a finding" data-speaker-notes="Most CI pipelines treat a failed build as a non-event — they log it and move on. Forge treats it as the most valuable kind of finding, because most of the truth about an open-source project is whether someone other than the author can actually build it on a clean machine. So build-failed routes directly to reported and published, with the env manifest, the captured logs, and a short narrative of what went wrong. The failure is the deliverable." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:36px">
+    <span style="width:9px;height:9px;background:var(--rose)"></span>
+    <span>§ 10 · Build-failed is a finding</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title-lg);line-height:1.05;letter-spacing:-0.025em;color:var(--paper);margin:0;max-width:22ch">"This does not build on a clean machine" is <span style="color:var(--rose);font-style:italic">a finding worth publishing.</span></h1>
+  <div class="rise3" style="display:flex;align-items:center;gap:16px;margin:60px 0 0;flex-wrap:nowrap">
+    <div style="border:1.5px solid var(--rose);background:rgba(224,83,61,.06);padding:24px 28px;font-family:var(--fm);font-size:26px;color:var(--rose);font-weight:600">build-failed</div>
+    <span style="color:var(--rose);font-size:36px">→</span>
+    <div style="border:1px solid var(--rose);padding:24px 28px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper);max-width:520px;line-height:1.4">reported<br><span style="font-family:var(--fh);font-size:18px;color:var(--dim)">env.json + captured logs + short narrative of <em>what</em> went wrong, <em>where</em>, and <em>at which command</em></span></div>
+    <span style="color:var(--rose);font-size:36px">→</span>
+    <div style="border:1px solid var(--rose);padding:24px 28px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper);max-width:440px;line-height:1.4">published<br><span style="font-family:var(--fh);font-size:18px;color:var(--dim)">gist + scsiwyg blog · scrubbed · linked in the work-state event</span></div>
+  </div>
+  <div class="rise4" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px">
+    <div style="border:1px solid var(--line2);background:var(--ink2);padding:22px 24px"><div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--rose);letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px">discarded by CI</div><div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">most projects' failed builds. Nobody learns. Nobody finds out.</div></div>
+    <div style="border:1px solid var(--line2);background:var(--ink2);padding:22px 24px"><div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--yellow);letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px">kept by forge</div><div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">every failure has an env manifest, a log, and a public writeup.</div></div>
+    <div style="border:1px solid var(--line2);background:var(--ink2);padding:22px 24px"><div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--green);letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px">the value</div><div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">future-you (and the project owner) know exactly which clean machine, which command, which line.</div></div>
+  </div>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--rose)">▸ forge-state · terminal-with-findings</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 11 ============================ -->
+<section data-label="The deploy bundle" data-speaker-notes="Packaging turns a built repo into something a stranger can actually run. The deploy/ folder always contains three files: a Dockerfile that reuses the build's base image, a compose.yaml that wires it up, and a RUN.md that spells out the exact docker-run or compose-up invocation and what to expect. The bundle is self-contained and shareable without any registry. On top of that, the locked decision is to also push the image to GHCR — so the same artifact is one docker-pull away." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:30px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 11 · The deploy bundle</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">deploy/ — always emitted. <span style="color:var(--violet)">Self-contained.</span></h1>
+  <div class="rise3" style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:46px">
+    <div style="border:1px solid var(--line2);background:var(--ink2);display:flex;flex-direction:column">
+      <div style="padding:18px 22px;border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;color:var(--teal)">deploy/Dockerfile</div>
+      <pre style="margin:0;padding:24px;font-family:var(--fm);font-size:20px;line-height:1.55;color:var(--paper);flex:1;overflow:hidden">FROM <span style="color:var(--yellow)">rust:1.79</span>
+WORKDIR /app
+COPY . .
+RUN cargo build \
+  --release --locked
+ENTRYPOINT [<span style="color:var(--yellow)">"./target/release/rg-turbo"</span>]</pre>
+    </div>
+    <div style="border:1px solid var(--line2);background:var(--ink2);display:flex;flex-direction:column">
+      <div style="padding:18px 22px;border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;color:var(--teal)">deploy/compose.yaml</div>
+      <pre style="margin:0;padding:24px;font-family:var(--fm);font-size:20px;line-height:1.55;color:var(--paper);flex:1;overflow:hidden">services:
+  <span style="color:var(--teal)">rg-turbo</span>:
+    image: forge/rg-turbo:exp-0007
+    volumes:
+      - ./tree:/data:ro
+    command: [<span style="color:var(--yellow)">"pattern"</span>, <span style="color:var(--yellow)">"/data"</span>]</pre>
+    </div>
+    <div style="border:1px solid var(--line2);background:var(--ink2);display:flex;flex-direction:column">
+      <div style="padding:18px 22px;border-bottom:1px solid var(--line2);font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;color:var(--teal)">deploy/RUN.md</div>
+      <pre style="margin:0;padding:24px;font-family:var(--fm);font-size:20px;line-height:1.55;color:var(--paper);flex:1;overflow:hidden"><span style="color:var(--dim)"># Run locally</span>
+docker run --rm \
+  forge/rg-turbo:exp-0007 \
+  <span style="color:var(--yellow)">"pattern" ./src</span>
+
+<span style="color:var(--dim"># Or with compose</span>
+docker compose up</pre>
+    </div>
+  </div>
+  <div class="rise4" style="margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:22px">
+    <div style="border:1.5px solid var(--green);background:rgba(123,168,107,.06);padding:22px 26px;display:flex;align-items:center;gap:18px">
+      <div style="font-family:var(--fm);font-size:26px;color:var(--green);font-weight:600">+ GHCR</div>
+      <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">Locked ON — pushes to <span style="font-family:var(--fm);color:var(--paper)">ghcr.io/davidolsson</span> via <span style="font-family:var(--fm);color:var(--paper)">$GHCR_TOKEN</span>.</div>
+    </div>
+    <div style="border:1px solid var(--line2);background:var(--ink2);padding:22px 26px;display:flex;align-items:center;gap:18px">
+      <div style="font-family:var(--fm);font-size:22px;color:var(--rose);font-weight:600">build-failed</div>
+      <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">no package; the report explains why no artifact was produced.</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · two senses of deploy</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 12 ============================ -->
+<section data-label="Publishing fan-out" data-speaker-notes="Publishing fans out to three surfaces. The gist is the reproducible build record — env manifest, exact commands, results — so anyone can run it again. The blog post goes to scsiwyg in your voice, auto-publish locked on, because the writeup is the point. The work-state event makes the build and publish themselves harvestable, so this activity feeds back into the same intelligence layer that originally surfaced the link. Before any of it ships, the publisher scrubs every output against the known secret set." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:30px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 12 · Publishing fan-out</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">One record. <span style="color:var(--yellow)">Three surfaces.</span> Scrubbed first.</h1>
+  <div class="rise3" style="flex:1;display:flex;align-items:center;gap:38px;margin-top:50px">
+    <div style="flex:0 0 320px;border:1.5px solid var(--yellow);background:linear-gradient(180deg,rgba(246,172,45,.10),rgba(246,172,45,.02));box-shadow:0 0 60px rgba(246,172,45,.16);padding:36px 28px;display:flex;flex-direction:column;gap:14px;text-align:center">
+      <div style="font-family:var(--fm);font-size:25px;color:var(--yellow)">experiment.yaml</div>
+      <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">The record. Single source.</div>
+      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint);margin-top:auto">→ secret scrub →</div>
+    </div>
+    <div style="color:var(--yellow);font-size:40px">→</div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:24px 28px;display:flex;align-items:flex-start;gap:18px">
+        <div style="flex:0 0 130px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--yellow);font-weight:600">Gist</div>
+        <div style="flex:1">
+          <div style="font-family:var(--fh);font-weight:600;font-size:24px;color:var(--paper);margin-bottom:6px">The reproducible build record</div>
+          <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">env.json verbatim + exact commands + results + link to the deploy bundle. Auto.</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:24px 28px;display:flex;align-items:flex-start;gap:18px">
+        <div style="flex:0 0 130px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--teal);font-weight:600">Blog</div>
+        <div style="flex:1">
+          <div style="font-family:var(--fh);font-weight:600;font-size:24px;color:var(--paper);margin-bottom:6px">scsiwyg — the voice, the audience</div>
+          <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">Auto-publish locked ON. The writeup, not the dump.</div>
+        </div>
+      </div>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:24px 28px;display:flex;align-items:flex-start;gap:18px">
+        <div style="flex:0 0 130px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--violet);font-weight:600">work-state</div>
+        <div style="flex:1">
+          <div style="font-family:var(--fh);font-weight:600;font-size:24px;color:var(--paper);margin-bottom:6px"><span style="font-family:var(--fm);color:var(--paper)">build</span> + <span style="font-family:var(--fm);color:var(--paper)">publish</span> events</div>
+          <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">The activity is itself harvestable. Forge's output becomes work-state's input.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rise4" style="margin-top:30px;border:1.5px solid var(--rose);background:rgba(224,83,61,.05);padding:18px 24px;display:flex;align-items:center;gap:18px">
+    <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--rose);font-weight:600">scrub</div>
+    <div style="font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.4">No token enters the container; no token exits the host. Every output is checked against the known secret set before it ships.</div>
+  </div>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · gist + blog + event</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 13 ============================ -->
+<section data-label="Install & locked decisions" data-speaker-notes="Three install paths, all flowing through Claude Code's plugin system because this repo is a one-plugin marketplace. The locked configuration on the right is the set of decisions the spec called out as open — they're now closed. Channel is the general channel with the test-tube emoji, self-only so a colleague's reaction doesn't enqueue a build. Blog auto-publishes. The GHCR push is on. The mirror remote is left null on init; you set it yourself once your private repo exists." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:column;overflow:hidden;position:relative">
+  <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:30px">
+    <span style="width:9px;height:9px;background:var(--yellow)"></span>
+    <span>§ 13 · Install &amp; locked decisions</span>
+  </div>
+  <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0">Install in one command. <span style="color:var(--teal)">Five decisions locked.</span></h1>
+  <div class="rise3" style="flex:1;display:grid;grid-template-columns:1.15fr 1fr;gap:48px;margin-top:46px">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;color:var(--faint)">Install paths · pick one</div>
+      <pre style="margin:0;background:var(--ink2);border:1px solid var(--line2);padding:24px 28px;font-family:var(--fm);font-size:20px;line-height:1.55;color:var(--paper);overflow:hidden"><span style="color:var(--dim)"># 1. From a git remote (sharing)</span>
+/plugin marketplace add <span style="color:var(--yellow)">&lt;owner&gt;</span>/forge-state
+/plugin install forge-state@forge-state
+
+<span style="color:var(--dim)"># 2. From a local clone</span>
+git clone &lt;url&gt; ~/src/forge-state
+/plugin marketplace add ~/src/forge-state
+/plugin install forge-state@forge-state
+
+<span style="color:var(--dim)"># 3. From the release tarball</span>
+tar -xzf forge-state-0.1.0.tgz -C ~/src
+/plugin marketplace add ~/src/forge-state
+/plugin install forge-state@forge-state
+
+<span style="color:var(--dim)"># Then, in your shell, once:</span>
+bash scripts/init-facility.sh
+<span style="color:var(--dim)"># From a Claude Code session:</span>
+/forge-orchestrator <span style="color:var(--yellow)">--once</span></pre>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.18em;text-transform:uppercase;color:var(--faint)">Locked decisions · spec §18</div>
+      <div style="border:1px solid var(--line2)">
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;background:var(--ink2);border-bottom:1px solid var(--line2);padding:14px 18px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)"><div>item</div><div>value</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;border-bottom:1px solid var(--line2);padding:16px 18px;font-family:var(--fh);font-size:var(--t-small)"><div style="color:var(--paper)">Packaging push</div><div style="color:var(--green);font-family:var(--fm);font-size:var(--t-mono-sm)">YES — ghcr.io/davidolsson</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;border-bottom:1px solid var(--line2);padding:16px 18px;font-family:var(--fh);font-size:var(--t-small)"><div style="color:var(--paper)">Blog publishing</div><div style="color:var(--green);font-family:var(--fm);font-size:var(--t-mono-sm)">auto-publish · scsiwyg</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;border-bottom:1px solid var(--line2);padding:16px 18px;font-family:var(--fh);font-size:var(--t-small)"><div style="color:var(--paper)">Channel + marker</div><div style="color:var(--teal);font-family:var(--fm);font-size:var(--t-mono-sm)">#general · 🧪 · self-only</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;border-bottom:1px solid var(--line2);padding:16px 18px;font-family:var(--fh);font-size:var(--t-small)"><div style="color:var(--paper)">Durability mirror</div><div style="color:var(--yellow);font-family:var(--fm);font-size:var(--t-mono-sm)">GitHub private · set manually</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;padding:16px 18px;font-family:var(--fh);font-size:var(--t-small)"><div style="color:var(--paper)">Facility location</div><div style="color:var(--teal);font-family:var(--fm);font-size:var(--t-mono-sm)">~/forge/ visible · state/ subfolder</div></div>
+      </div>
+      <div style="border:1px solid var(--line2);background:var(--ink2);padding:18px 22px;font-family:var(--fh);font-size:var(--t-small);color:var(--dim);line-height:1.45">Required: <span style="font-family:var(--fm);color:var(--paper)">Docker Desktop</span> running · <span style="font-family:var(--fm);color:var(--paper)">$GHCR_TOKEN</span> exported · secrets registered in your sops-age store under <span style="font-family:var(--fm);color:var(--paper)">anthropic · slack · github · scsiwyg · ghcr</span>.</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · v0.1 · one-plugin marketplace</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span></div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SLIDE 14 ============================ -->
+<section data-label="Curiosity, compounded nightly" data-speaker-notes="The closing frame. You don't have more hours in the day, but you now have a night shift. The mark is a single emoji on a Slack post you were going to share anyway. The work happens in a sealed sandbox while you sleep. And by morning you have a built repo, a written report, and an artifact you can ship — every night, for as many projects as you can curate. Run it on demand with the orchestrator's --once flag while you're proving the path; flip the launchd timer when you're ready." style="background:var(--ink);color:var(--paper);font-family:var(--fh);padding:96px var(--px) 150px;display:flex;flex-direction:row;align-items:center;gap:80px;overflow:hidden;position:relative">
+  <div style="flex:0 0 820px;display:flex;flex-direction:column">
+    <div class="rise" style="display:flex;align-items:center;gap:14px;font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:44px">
+      <span style="width:9px;height:9px;background:var(--green)"></span>
+      <span>§ 14 · Curiosity, compounded</span>
+    </div>
+    <h1 class="rise2" style="font-family:var(--fh);font-weight:500;font-size:var(--t-title-lg);line-height:1.02;letter-spacing:-0.025em;color:var(--paper);margin:0;max-width:16ch">Curiosity, <span style="color:var(--yellow);font-style:italic">compounded nightly.</span></h1>
+    <p class="rise3" style="font-family:var(--fh);font-weight:400;font-size:var(--t-sub);line-height:1.35;color:var(--dim);margin:46px 0 0;max-width:26ch">You wake up to a built repo, a written report, and an artifact you can ship.</p>
+    <div class="rise4" style="margin-top:54px;display:flex;flex-direction:column;gap:14px">
+      <div style="font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper);display:flex;align-items:center;gap:14px"><span style="color:var(--yellow)">▸</span>/forge-orchestrator <span style="color:var(--yellow)">--once</span></div>
+      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint);padding-left:28px">prove the path on three to five repos before enabling the timer.</div>
+    </div>
+  </div>
+  <div class="rise4" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:22px">
+    <div style="font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.22em;text-transform:uppercase;color:var(--faint);align-self:flex-start">A morning, on forge</div>
+    <div style="border:1.5px solid var(--green);background:linear-gradient(180deg,rgba(123,168,107,.08),rgba(123,168,107,.01));padding:30px 30px;width:100%;display:flex;flex-direction:column;gap:14px">
+      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--green);letter-spacing:.2em;text-transform:uppercase">tonight's run</div>
+      <div style="font-family:var(--fh);font-size:32px;color:var(--paper);font-weight:500">4 built · 1 build-failed · 1 carried</div>
+      <div style="font-family:var(--fm);font-size:var(--t-micro);color:var(--faint)">posted to #general · 6 gists · 5 blog posts · 4 GHCR images · 11 work-state events</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;width:100%;margin-top:6px">
+      <div style="border:1px solid var(--line2);padding:14px 18px;display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)"><span style="color:var(--yellow);width:22px">▸</span>EXP-0084 · ripgrep-turbo <span style="color:var(--green);margin-left:auto;font-size:var(--t-micro)">published</span></div>
+      <div style="border:1px solid var(--line2);padding:14px 18px;display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)"><span style="color:var(--yellow);width:22px">▸</span>EXP-0085 · tinyhttp <span style="color:var(--green);margin-left:auto;font-size:var(--t-micro)">published</span></div>
+      <div style="border:1px solid var(--line2);padding:14px 18px;display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--paper)"><span style="color:var(--rose);width:22px">▸</span>EXP-0086 · obscure-mcp <span style="color:var(--rose);margin-left:auto;font-size:var(--t-micro)">build-failed · published</span></div>
+      <div style="border:1px solid var(--line2);padding:14px 18px;display:flex;align-items:center;gap:14px;font-family:var(--fm);font-size:var(--t-mono-sm);color:var(--dim)"><span style="color:var(--faint);width:22px">▸</span>EXP-0087 · vector-store <span style="color:var(--faint);margin-left:auto;font-size:var(--t-micro)">carried — budget</span></div>
+    </div>
+    <div style="margin-top:auto;font-family:var(--fh);font-size:var(--t-body);color:var(--dim);align-self:flex-start;font-style:italic">Record once. <span style="color:var(--yellow)">Build forever.</span></div>
+  </div>
+  <div style="position:absolute;left:var(--px);bottom:92px;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint)">▸ forge-state · sibling to desk-state · work-state · notella</div>
+  <div style="position:absolute;right:var(--px);bottom:92px;text-align:right;font-family:var(--fm);font-size:var(--t-micro);letter-spacing:.05em;color:var(--faint);white-space:nowrap"><span style="font-family:var(--fh);font-weight:300;letter-spacing:.14em;color:var(--dim)">ATOMIC47 LABS</span>&nbsp;&nbsp;·&nbsp;&nbsp;David Olsson</div>
+  <div style="position:absolute;left:var(--px);right:var(--px);bottom:56px;height:18px">
+    <div style="position:absolute;left:0;right:0;top:8px;height:1px;background:var(--line2)"></div>
+    <div data-progress style="position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+</div>
+<script src="./deck.js"></script>
+</body>
+</html>

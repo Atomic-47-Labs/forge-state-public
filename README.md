@@ -4,6 +4,8 @@ A local-first lab bench for open-source projects. You mark a project announcemen
 
 Sibling to `desk-state`, `work-state`, and `notella`.
 
+**📊 Slide deck:** [`site/index.html`](site/index.html) — 14-slide walkthrough of the architecture, lifecycle, sandbox, and install. Deploys to Netlify as a static site (see `netlify.toml`).
+
 ## Quickstart
 
 ```bash
