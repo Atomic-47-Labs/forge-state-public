@@ -1,7 +1,7 @@
 {
   "name": "forge-state",
-  "version": "0.1.1",
-  "description": "Local-first lab bench for open-source projects: mark a repo in Slack, nightly forge researches/builds/experiments/packages/publishes.",
+  "version": "0.1.3",
+  "description": "Local-first lab bench for open-source projects: inbound 🧪 reactions in Slack plus wild-source harvesters (GitHub code search, RSS feeds, curated author watchlist). Nightly forge researches/builds/experiments/packages/publishes. Includes a self-reflection skill (forge-introspector) that reads forge's own capability walls and proposes how to overcome them.",
   "owner": {
     "name": "David Olsson",
     "url": "https://atomic47.co"
@@ -9,8 +9,8 @@
   "plugins": [
     {
       "name": "forge-state",
-      "version": "0.1.1",
-      "description": "Lab bench for open-source projects. Mark a repo in Slack with 🧪; nightly, forge researches/builds/experiments/packages/publishes.",
+      "version": "0.1.3",
+      "description": "Lab bench for open-source projects. 14 skills: state spine, orchestrator, 4 harvesters (slack + github + rss + watchlist), researcher, builder, experimenter, packager, reporter, publisher, the EXP-0006-emitted agentic-rl runner, and forge-introspector (self-reflection on capability walls).",
       "source": "./plugin"
     }
   ]

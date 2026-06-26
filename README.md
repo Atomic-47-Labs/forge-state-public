@@ -54,15 +54,36 @@ Machinery lives in `state/` (visible), not `.state/` — forge-state intentional
 
 ## The skills
 
+**Substrate + orchestrator**
+
 - `/forge-state` — substrate spine; only writer to disk.
-- `/forge-harvester-slack` — drains 🧪 reactions in `#development` into candidate records.
+- `/forge-orchestrator` — nightly walk, thin router, `--once` and `--dry-run` supported. Calls all four harvesters before draining the phase queue.
+
+**Intake (four harvesters: one inbound, three wild)**
+
+- `/forge-harvester-slack` — *inbound*. Drains 🧪 reactions in `#development` into candidate records.
+- `/forge-harvester-github` — *wild*. GitHub Code Search for repos with `SKILL.md` / `AGENTS.md` / `program.md` / `CLAUDE.md`. Gates: stars ≥ 10, OSI license, commit ≤ 90d. Configured via `intake.wild_targets[]`.
+- `/forge-harvester-rss` — *wild*. Watches RSS feeds (MarkTechPost, HuggingFace blog, Anthropic news, Cameron R. Wolfe substack, dottxt blog, opensourceprojects.dev) for recipe-style posts ("Using X and Y to do Z", "Introducing X", "Open-source launch of X"). Feeds article-as-spec candidates downstream.
+- `/forge-harvester-watchlist` — *wild*. Tracks a curated list of authors who've shipped strong forge benches (karpathy, dottxt-ai, HKUDS, Mentra-Community, nolly-studio, motiful, safishamsi, calesthio, github, pinokiocomputer, Mistral-Community, allenai). Enqueues new repos + new major release tags.
+
+The three wild harvesters were emitted from the EXP-0001..0018 themes-at-18 synthesis. The Slack 🧪 path remains primary; the wild harvesters add active discovery between human surfacings.
+
+**Lifecycle**
+
 - `/forge-researcher` — fills what / who / why / comparables / license.
 - `/forge-builder` — clones, pins, classifies, builds in Docker. Outcome: built or build-failed (both advance).
-- `/forge-experimenter` — picks a §10 template, runs a bounded experiment in the sandbox.
-- `/forge-packager` — emits `deploy/` bundle, pushes image to GHCR.
+- `/forge-experimenter` — picks a §10 template (incl. non-build templates: `article-as-spec`, `paper-claim-reproduce`, `tpa-pin-and-bench`, `commentary-pattern-note`), runs a bounded experiment in the sandbox.
+- `/forge-packager` — emits `deploy/` bundle, pushes image to GHCR; promotes forge-original artifacts to standalone GitHub repos when they meet the 3-criterion rule (forge-original, installable via standard package manager, fork-friendly).
 - `/forge-reporter` — composes `report.md` (success and failure senses).
-- `/forge-publisher` — gist + scsiwyg blog (auto-publish) + work-state event; scrubs secrets first.
-- `/forge-orchestrator` — nightly walk, thin router, `--once` and `--dry-run` supported.
+- `/forge-publisher` — gist + scsiwyg blog (locked to `/forge`, layman-intro required) + work-state event; scrubs secrets first.
+
+**Self-reflection**
+
+- `/forge-introspector` — reads every published experiment's "What I didn't run" section, every entry in `state.json.policy_notes[]` / `follow_up_notes[]`, and every error-shaped activity event, clusters them, and writes a **capability work-order doc** to `state/introspection/YYYY-MM-DD.md`. Each work order proposes a specific remedy (new template / new skill / manifest change / spec change / harvester-gates change) with ≥3 supporting EXP references. Read-and-propose only — never mutates the substrate. Closes the loop where forge previously needed a human to spot recurring walls.
+
+**Skills emitted by experiments**
+
+- `/forge-agentic-rl` — companion to the `agentic-rl-runner` package promoted out of EXP-0006.
 
 ## Install
 
@@ -92,7 +113,7 @@ mkdir -p ~/src && tar -xzf forge-state-0.1.0.tgz -C ~/src
 /plugin install forge-state@forge-state
 ```
 
-After install, restart Claude Code so the 9 `/forge-*` skills load, then run `bash scripts/init-facility.sh` once to create `~/forge/`.
+After install, restart Claude Code so the 14 `/forge-*` skills load (state spine + orchestrator + 4 harvesters + 6 lifecycle skills + `forge-introspector` + `forge-agentic-rl`), then run `bash scripts/init-facility.sh` once to create `~/forge/`.
 
 > Author's local setup additionally symlinks the plugin into `~/.claude/plugins/marketplaces/local-desktop-app-uploads/forge-state` alongside `learn-state`, `project-state`, and `notella`. End users do not need to do this.
 

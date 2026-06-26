@@ -1,12 +1,12 @@
 {
   "name": "forge-state",
-  "version": "0.1.1",
-  "description": "Lab bench for open-source projects. Mark a repo in Slack with an emoji; nightly, forge researches, clones, builds it inside a sealed Docker sandbox, runs a real experiment, packages it into something runnable, and ships a writeup + deployable artifact. Build failures are kept as findings, not discarded.",
+  "version": "0.1.3",
+  "description": "Lab bench for open-source projects. Inbound intake from Slack 🧪 reactions plus wild-source harvesters (GitHub code search, RSS feeds, curated author watchlist). Nightly, forge researches, clones, builds inside a sealed Docker sandbox, runs an experiment, packages it into something runnable, and ships a writeup + deployable artifact. Includes forge-introspector — reads its own capability walls across published experiments and proposes work orders to overcome them. Build failures are kept as findings, not discarded.",
   "author": {
     "name": "David Olsson",
     "url": "https://atomic47.co"
   },
-  "repository": "https://github.com/atomic47/forge-state-public",
+  "repository": "https://github.com/atomic-47-labs/forge-state-public",
   "license": "MIT",
   "keywords": [
     "forge",
@@ -15,6 +15,10 @@
     "docker",
     "open-source",
     "lab-bench",
-    "local-first"
+    "local-first",
+    "skill-md",
+    "agents-md",
+    "wild-harvest",
+    "article-as-spec"
   ]
 }

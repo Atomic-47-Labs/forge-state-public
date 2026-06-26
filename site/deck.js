@@ -78,7 +78,7 @@
       'border:1px solid #222937','pointer-events:none',
       'transition:opacity .4s ease','opacity:0'
     ].join(';');
-    hud.innerHTML = '<span id="deck-hud-counter"></span><span style="opacity:.5;margin:0 14px">·</span><span>← → · 1-9 · R · ?</span>';
+    hud.innerHTML = '<span id="deck-hud-counter"></span><span style="opacity:.5;margin:0 14px">·</span><span>← → · 1-5 · End · R · ?</span>';
     document.body.appendChild(hud);
   }
   function updateHud(){

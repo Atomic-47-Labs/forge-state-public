@@ -20,6 +20,38 @@ properties:
         minItems: 1
       marker: { type: string }
       markers_self_only: { type: boolean }
+      # Optional wild-source intake. The Slack 🧪 path above remains primary;
+      # these add active discovery (added in v0.1.2 from the themes-at-18 synthesis).
+      wild_targets:
+        type: array
+        description: "GitHub Code Search expressions consumed by forge-harvester-github."
+        items:
+          type: object
+          required: [query]
+          additionalProperties: false
+          properties:
+            query: { type: string }
+            min_stars: { type: integer, minimum: 0, default: 10 }
+            max_age_days: { type: integer, minimum: 1, default: 90 }
+      rss_feeds:
+        type: array
+        description: "RSS/Atom URLs consumed by forge-harvester-rss."
+        items: { type: string }
+      watchlist:
+        type: array
+        description: "GitHub owners watched by forge-harvester-watchlist."
+        items:
+          type: object
+          required: [owner]
+          additionalProperties: false
+          properties:
+            owner: { type: string }
+            reason: { type: string }
+            min_stars: { type: integer, minimum: 0, default: 5 }
+      wild_owners_only:
+        type: boolean
+        description: "When true, forge-harvester-github only enqueues repos whose owner is in watchlist[]. Off by default."
+        default: false
   sandbox:
     type: object
     required: [runtime, base_images, egress, cpu, memory, per_repo_timeout_s, night_budget_s]
