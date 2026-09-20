@@ -1,0 +1,227 @@
+# ForgeExperiment schema — documents the invariant contract, not a rigid shape.
+#
+# Real-world finding (2026-09-20 audit): the strict, additionalProperties:false
+# version of this schema rejected every one of the 25 real experiment.yaml
+# records the facility had actually produced, including fields like
+# `repo.host` being *required* despite appearing in 0/25 real records, and
+# organic fields (`source.source_kind`, `source.promoted_via`,
+# `repo.maintainer`, `outputs.blog_status: skipped-by-config`, etc.) that
+# don't fit the original narrow enums at all. If `forge-state write` ever
+# actually enforced the old schema, nothing would have been writable.
+#
+# This version requires only what is true of 100% of real records (id, slug,
+# phase, source, repo as objects) and documents commonly-used fields without
+# forbidding others. Treat unknown fields as normal, organic evolution —
+# not a defect — and extend the documented `properties` lists here when a
+# new field shows up in 3+ real records, so this stays a useful reference
+# without becoming a rigid gate again.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://atomic47.co/forge-state/schemas/experiment.schema.yaml"
+title: ForgeExperiment
+type: object
+required: [id, slug, phase, source, repo]
+additionalProperties: true
+properties:
+  id:
+    type: string
+    pattern: "^EXP-[0-9]{4}$"
+  slug:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,39}$"
+  phase:
+    type: string
+    enum: [candidate, researched, cloned, built, build-failed, experimented, packaged, reported, published]
+  title: { type: string }
+  # Both conventions appear in real records; `created`/`updated` is the one
+  # to use going forward (matches EXP-0001 and everything reconciled in the
+  # 2026-09-20 audit), `created_at` is a legacy alias still present on some
+  # older records. Don't require either — plenty of valid records predate
+  # this being standardized.
+  created: { type: string, format: date-time }
+  updated: { type: string, format: date-time }
+  created_at: { type: string, format: date-time }
+  verdict: { type: string }
+
+  source:
+    type: object
+    additionalProperties: true
+    properties:
+      # Free text, not an enum: real records use slack, github-code-search,
+      # rss, watchlist, direct-orchestrator-request, forge-internal, and
+      # more as the intake surface has grown organically. An enum here kept
+      # rejecting every new surface as it was invented.
+      surface: { type: string }
+      channel: { type: string }
+      channel_id: { type: string }
+      message_ts: { type: string }
+      message_display_ts: { type: string }
+      marked_by: { type: string }
+      marked_by_name: { type: string }
+      marked_with: { type: string }
+      marker_form: { type: string }
+      # Nullable: legitimately null for non-clonable/hosted-SaaS sources
+      # (EXP-0001 AutoWiki, EXP-0016 Mistral OCR 4) where there is no repo
+      # URL to record at all.
+      url: { type: [string, "null"] }
+      resolved_url: { type: string }
+      raw_text: { type: string }
+      source_kind: { type: string }
+      # Ad hoc lineage fields seen on re-harvested / promoted records — kept
+      # permissive on purpose (additionalProperties: true covers new ones).
+      re_harvest: { type: boolean }
+      re_harvest_reason: { type: string }
+      parent_experiment: { type: string }
+      promoted_via: { type: string }
+
+  repo:
+    type: object
+    additionalProperties: true
+    properties:
+      # Nullable for the same reason as source.url above — hosted-SaaS /
+      # non-clonable sources have no repo to point at.
+      url: { type: [string, "null"] }
+      owner: { type: string }
+      name: { type: string }
+      # `host` existed in the original schema as required but appears in
+      # 0/25 real records (owner+name/url convey the same info) — documented
+      # here as optional, not required.
+      host: { type: string, enum: [github, gitlab, codeberg, other] }
+      ref: { type: [string, "null"] }
+      commit: { type: [string, "null"] }
+      pinned_commit: { type: [string, "null"] }
+      license: { type: [string, "null"] }
+      language: { type: string }
+      stars: { type: integer }
+      version: { type: string }
+      version_hint: { type: string }
+      pushed_at: { type: string, format: date-time }
+      clonable: { type: boolean }
+      resolved: { type: boolean }
+      reason_not_clonable: { type: string }
+      size_mb: { type: number }
+      visibility: { type: string }
+      default_branch: { type: string }
+      maintainer: { type: string }
+      runtime: { type: string }
+      kind: { type: string }
+
+  research:
+    type: [object, "null"]
+    additionalProperties: true
+    properties:
+      what: { type: string }
+      who: { type: string }
+      why_notable: { type: string }
+      comparables:
+        type: array
+        items: { type: string }
+      source_refs:
+        type: array
+        items: { type: string }
+
+  build:
+    type: [object, "null"]
+    additionalProperties: true
+    properties:
+      image_base: { type: string }
+      sandbox: { type: string }
+      commands:
+        type: array
+        items: { type: string }
+      exit_code: { type: [integer, "null"] }
+      duration_s: { type: [number, "null"] }
+      env_manifest_ref: { type: string }
+      # Real terminal states go beyond built/build-failed: `passed` and
+      # `passed-structural` cover pre-Docker structural-only passes,
+      # `not-applicable` covers non-build sources (skills bundles, article
+      # sources) where no build step exists at all.
+      status: { type: string, enum: [built, build-failed, passed, passed-structural, not-applicable] }
+      reason: { type: string }
+      findings:
+        type: array
+        items: { type: string }
+      failure:
+        type: [object, "null"]
+        additionalProperties: true
+        properties:
+          last_command: { type: string }
+          exit_code: { type: integer }
+          tail: { type: string }
+          reason: { type: string }
+          kind: { type: string }
+          note: { type: string }
+
+  experiment:
+    type: [object, "null"]
+    additionalProperties: true
+    properties:
+      # Free text, not an enum. forge-experimenter/SKILL.md documents two
+      # taxonomies — build-shaped (cli, library, webapp, mcp, service,
+      # model) and non-build (article-as-spec, research-paper,
+      # third-party-app, commentary-only) — and real records add more still
+      # (monorepo-service, commentary-only). Treat those as the common,
+      # documented cases, not an exhaustive closed set.
+      type: { type: string }
+      template: { type: string }
+      steps:
+        type: array
+        items: { type: string }
+      observations: { type: string }
+      findings:
+        type: array
+        items: { type: string }
+      # Free text, not an enum: success/partial/failed are the documented
+      # common cases, but real records also use strong/build-failed. Keep
+      # `build.status` as the strict enum for the actual build outcome;
+      # this field describes the bench verdict, which has proven to need
+      # more room than three buckets.
+      result: { type: string }
+
+  packaging:
+    type: [object, "null"]
+    additionalProperties: true
+    properties:
+      promote_to_repo: { type: boolean }
+      emit_bundle: { type: boolean }
+      emit_install_card: { type: boolean }
+      repo_url: { type: [string, "null"] }
+      repo_topics:
+        type: array
+        items: { type: string }
+
+  # Legacy alias for `packaging` (some older records use `package` per the
+  # original spec naming). Both are accepted; `packaging` is preferred.
+  package:
+    type: [object, "null"]
+    additionalProperties: true
+
+  report:
+    type: [object, "null"]
+    additionalProperties: true
+    properties:
+      ref: { type: string }
+      composed: { type: string, format: date-time }
+      amended: { type: string, format: date-time }
+
+  outputs:
+    type: [object, "null"]
+    additionalProperties: true
+    properties:
+      gist_url: { type: [string, "null"] }
+      blog_post_id: { type: [string, "null"] }
+      # `skipped-by-config` covers the scsiwyg-disabled path
+      # (surfaces.blog.enabled: false) — a normal outcome, not an error.
+      blog_status: { type: string, enum: [draft, published, skipped-by-config] }
+      blog_site: { type: string }
+      blog_url: { type: [string, "null"] }
+      blog_slug: { type: string }
+
+  events_emitted:
+    type: array
+    # Free text, not an enum: build/publish/harvest/introspect are the
+    # documented common cases; real records also emit republish,
+    # skill-emit, experimenter-upgrade, etc. as forge's own behavior grows.
+    items: { type: string }
+
+  notes:
+    type: string

@@ -6,7 +6,12 @@ required: [facility, version, root, intake, sandbox, experiment, packaging, surf
 additionalProperties: false
 properties:
   facility: { const: forge-state }
-  version: { type: string }
+  # `type: [string, number]` on purpose: an unquoted `version: 0.1` in YAML
+  # parses as a float, not a string — a real footgun the 2026-09-20 audit
+  # hit immediately against this facility's own real manifest.yaml. Prefer
+  # quoting version strings going forward, but don't hard-fail existing
+  # unquoted ones over it.
+  version: { type: [string, number] }
   root: { type: string }
   intake:
     type: object
@@ -85,16 +90,24 @@ properties:
     properties:
       gist:
         type: object
+        additionalProperties: false
         properties:
           enabled: { type: boolean }
           auto: { type: boolean }
       blog:
         type: object
+        additionalProperties: false
         properties:
+          # `enabled` is the master switch (added 2026-09-20) — when false,
+          # forge-publisher skips scsiwyg entirely and no blog_* output
+          # fields are written. `auto` only matters when enabled is true:
+          # true = publish immediately, false = create as a draft.
+          enabled: { type: boolean }
           target: { type: string }
           auto: { type: boolean }
       work_state:
         type: object
+        additionalProperties: false
         properties:
           enabled: { type: boolean }
   durability:
@@ -103,9 +116,11 @@ properties:
     properties:
       mirror:
         type: [object, "null"]
+        additionalProperties: false
         properties:
           kind: { type: string, enum: [github, gitea, local] }
           remote: { type: [string, "null"] }
+          branch: { type: string }
   secrets:
     type: object
     required: [store, refs]
