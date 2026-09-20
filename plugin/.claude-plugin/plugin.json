@@ -1,6 +1,6 @@
 {
   "name": "forge-state",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Lab bench for open-source projects. Inbound intake from Slack 🧪 reactions plus wild-source harvesters (GitHub code search, RSS feeds, curated author watchlist). Nightly, forge researches, clones, builds inside a sealed Docker sandbox, runs an experiment, packages it into something runnable, and ships a writeup + deployable artifact. Includes forge-introspector — reads its own capability walls across published experiments and proposes work orders to overcome them. Build failures are kept as findings, not discarded.",
   "author": {
     "name": "David Olsson",

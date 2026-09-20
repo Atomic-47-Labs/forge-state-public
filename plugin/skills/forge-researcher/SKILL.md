@@ -43,6 +43,12 @@ description: Use when a forge experiment is in phase `candidate` and needs its r
 - Repo unreachable → record `repo.license: unknown`, write a minimal research.md noting unreachability, still advance to `researched` (the builder will hard-fail next and that is itself a finding).
 - License ambiguous → record `repo.license: unclear` and surface in research.md.
 
+## Out of scope
+
+This skill only reads the web and writes `research.md` + the `research`
+block via `forge-state`. It never clones the repo (that's `forge-builder`'s
+job) and never touches git/gh in any way.
+
 ## References
 
 - Spec §5.1 (research block), §6 (lifecycle), §7 (skill table).

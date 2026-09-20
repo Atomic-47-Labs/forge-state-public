@@ -44,7 +44,7 @@ The shared memory of the forge facility. Every other forge-* skill routes its re
 | `init` | (none) | run `scripts/init-facility.sh`; idempotent |
 | `read` | path | return YAML/JSON contents |
 | `write` | path, content | validate against schema, write |
-| `validate` | (none) | walk experiments, validate each against `schemas/experiment.schema.yaml` |
+| `validate` | (none) | walk experiments, validate each against `plugin/schemas/experiment.schema.yaml` (prefer `scripts/validate.sh` when a dev checkout is available) |
 | `allocate-id` | (none) | scan experiments/, return next `EXP-NNNN` |
 | `advance-phase` | id, new_phase | update experiment.yaml; append activity event; refresh state.json counts |
 | `scrub-secrets` | text | redact known secret values (loaded from secret store refs) → return scrubbed |
@@ -54,7 +54,21 @@ The shared memory of the forge facility. Every other forge-* skill routes its re
 
 1. Resolve facility root from `$FORGE_ROOT` or `~/forge`.
 2. Acquire `state/forge.lock` (advisory flock) for any write op; fail-fast if held.
-3. For `write`: validate payload against the relevant schema in `/Users/davidolsson/WORKSONA/forge-state/schemas/` before persisting.
+3. For `write`: validate payload against the relevant schema, resolved as
+   `<this skill's base directory>/../../schemas/` (i.e. `plugin/schemas/`
+   relative to the repo root — the Skill tool reports "Base directory for
+   this skill" on every invocation; compute the schema path from that
+   rather than a hardcoded absolute path, which will not exist on any
+   machine but the original author's). If a dev checkout of the
+   `forge-state` repo is available, prefer running its real
+   `scripts/validate.sh` (actual jsonschema validation, not just reasoning
+   about the file) over eyeballing the schema by hand. The schema is
+   intentionally permissive (`additionalProperties: true` almost
+   everywhere) — it documents the invariant contract (id/slug/phase/
+   source/repo), not a rigid shape. Do not reject a write just because it
+   has a field the schema doesn't list; only reject on the few things that
+   are actually required or enum-constrained (e.g. an invalid `phase`
+   value, a malformed `id`).
 4. For `advance-phase`: only allow transitions matching the §6 lifecycle DAG. `build-failed → reported → published` is legal; any other backward move is rejected.
 5. For `scrub-secrets`: load secret values from the configured store (sops-age refs in manifest.secrets), build a redaction map, replace every occurrence with `<REDACTED:name>`.
 6. Append every state-changing op to `state/activity.ndjson` as `{ts, op, id, before, after}`.
@@ -66,7 +80,16 @@ The shared memory of the forge facility. Every other forge-* skill routes its re
 - Lock contention → return `LOCK_HELD`, do not retry.
 - Illegal phase transition → return `PHASE_DAG_VIOLATION`.
 
+## Out of scope
+
+This skill owns the facility's own files (`experiments/`, `state/`) — nothing
+else. It never touches the durability mirror's git state (that's
+`forge-orchestrator`'s job, run once per walk, after every worker skill has
+finished) and never creates or pushes to any GitHub repo (that's
+`forge-packager`'s narrowly-scoped promote-to-repo step, and only for the
+artifact's own new repo, never the facility's mirror).
+
 ## References
 
 - Spec §4 (facility layout), §5 (entities & schema), §6 (phase lifecycle), §7 (skill suite), §15 (secrets), §16 (durability).
-- Schemas: `/Users/davidolsson/WORKSONA/forge-state/schemas/experiment.schema.yaml`, `manifest.schema.yaml`.
+- Schemas: `plugin/schemas/experiment.schema.yaml`, `plugin/schemas/manifest.schema.yaml` (path relative to this skill's base directory — see step 3 above).

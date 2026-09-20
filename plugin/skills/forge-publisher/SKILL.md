@@ -1,6 +1,6 @@
 ---
 name: forge-publisher
-description: Use when a forge experiment is at phase `reported` and needs its outputs shipped — gist (auto), scsiwyg blog post (auto-publish, locked-on per project decision), and a work-state event emission. Scrubs secrets before every send. Trigger via "/forge-publisher EXP-NNNN" or invoked by forge-orchestrator. Advances phase to `published`.
+description: Use when a forge experiment is at phase `reported` and needs its outputs shipped — gist (auto), scsiwyg blog post (gated on manifest.surfaces.blog.enabled — currently off), and a work-state event emission. Scrubs secrets before every send. Trigger via "/forge-publisher EXP-NNNN" or invoked by forge-orchestrator. Advances phase to `published`.
 ---
 
 # forge-publisher — fan out outputs (gist + blog + work-state)
@@ -19,14 +19,14 @@ Two senses of "deploy" are both covered (spec §12): the writeup (gist + blog + 
 ## Outputs
 
 - `experiment.outputs.gist_url`.
-- `experiment.outputs.blog_post_id`, `blog_status: published`, `blog_site: forge`, `blog_url: https://scsiwyg.com/forge/<slug>` (locked auto-publish on the `forge` blog).
+- If `manifest.surfaces.blog.enabled` is true: `experiment.outputs.blog_post_id`, `blog_status: published`, `blog_site: forge`, `blog_url: https://scsiwyg.com/forge/<slug>`. If false (current setting), none of these fields are written and no scsiwyg call is made.
 - work-state event emitted (`build` + `publish`).
 - `experiment.events_emitted: [build, publish]`.
 - Phase advanced to `published`.
 
 ## Locked targets
 
-- **scsiwyg blog: `/forge`** — every forge experiment publishes here, never to a personal or default blog. Always pass `username: "forge"` to `mcp__scsiwyg__publish_post`. Rationale: forge work is its own corpus and should not pollute the author's personal feed. If the `forge` site doesn't exist, create it via `mcp__scsiwyg__create_site` with `username: forge` and the standard forge bio (see `~/forge/templates/site-bio.md`) before publishing.
+- **scsiwyg blog: `/forge`** — when the surface is enabled, every forge experiment publishes here, never to a personal or default blog. Always pass `username: "forge"` to `mcp__scsiwyg__publish_post`. Rationale: forge work is its own corpus and should not pollute the author's personal feed. If the `forge` site doesn't exist, create it via `mcp__scsiwyg__create_site` with `username: forge` and the standard forge bio (see `~/forge/templates/site-bio.md`) before publishing.
 - **gist:** public, owner = the active `gh` account.
 
 ## Layman intro (required)
@@ -51,15 +51,26 @@ If the experiment's `report.md` already contains a `## For the layman` heading, 
    - Compose gist files: `README.md` (the report, technical only — no layman intro), `experiment.yaml` (sanitized copy without internal paths), `env.json` (verbatim — the reproducibility anchor), `RUN.md` if present.
    - Create gist via GitHub API (public, description = "forge EXP-NNNN: <slug>").
    - Record `outputs.gist_url`.
-4. **Blog.**
-   - Confirm the `forge` scsiwyg site exists; create it if missing (one-time).
-   - **Compose layman intro** per the requirements above.
-   - Compose post body = layman intro + `---` + `report.md` body. Substitute the gist URL into placeholder anchors. Rewrite any `/david/...` or absolute cross-references to other forge posts as site-relative `/forge/<slug>`.
-   - Call `mcp__scsiwyg__publish_post` with `username: "forge"`, the slug = `exp-NNNN-<slug>`, the title from `experiment.yaml`, and tags including at minimum `["forge", <experiment-specific tags>]`. Locked to auto-publish (manifest.surfaces.blog.auto: true).
-   - Record `outputs.blog_post_id`, `outputs.blog_status: published`, `outputs.blog_site: forge`, `outputs.blog_url`.
+4. **Blog (gated).** `forge-state read manifest` → check `surfaces.blog.enabled`.
+   - If **false** (current setting): skip this step entirely. No scsiwyg call, no `outputs.blog_*` fields written. Note in the run-summary line that blog was skipped-by-config, not failed.
+   - If **true**:
+     - Confirm the `forge` scsiwyg site exists; create it if missing (one-time).
+     - **Compose layman intro** per the requirements above.
+     - Compose post body = layman intro + `---` + `report.md` body. Substitute the gist URL into placeholder anchors. Rewrite any `/david/...` or absolute cross-references to other forge posts as site-relative `/forge/<slug>`.
+     - Call `mcp__scsiwyg__publish_post` with `username: "forge"`, the slug = `exp-NNNN-<slug>`, the title from `experiment.yaml`, and tags including at minimum `["forge", <experiment-specific tags>]`. Only auto-publish if `surfaces.blog.auto` is also true; otherwise create as a draft.
+     - Record `outputs.blog_post_id`, `outputs.blog_status`, `outputs.blog_site: forge`, `outputs.blog_url`.
 5. **work-state event.** Emit `build` and `publish` events via the work-state facility (one-shot file drop into work-state's intake, or direct API if available). Mirror this activity so work-state can harvest forge's own output.
 6. **Run summary line** for the nightly summary (handed back to orchestrator): "EXP-NNNN <slug>: <result> → gist + /forge".
 7. `forge-state advance-phase EXP-NNNN published`.
+
+## Out of scope
+
+This skill creates a gist (via GitHub API) and, when enabled, a scsiwyg
+post. It never touches `~/forge`'s own git state or the durability mirror —
+that's `forge-orchestrator`'s job, once per walk, after every experiment's
+publisher step has finished. It never creates a GitHub *repository* either
+(that's `forge-packager`'s narrowly-scoped promote-to-repo step); a gist is
+the only GitHub write this skill performs.
 
 ## Error handling
 
@@ -71,4 +82,5 @@ If the experiment's `report.md` already contains a `## For the layman` heading, 
 
 ## References
 
-- Spec §12 (publishing), §15 (secrets — scrub is mandatory), §17 (observability — events are the longitudinal view), §18.1/.2 (locked: push + auto-publish).
+- Spec §12 (publishing), §15 (secrets — scrub is mandatory), §17 (observability — events are the longitudinal view), §18.1 (locked: gist push always on).
+- §18.2 (blog auto-publish) was renegotiated 2026-09-20: no longer unconditionally locked on — gated by `manifest.surfaces.blog.enabled`/`.auto`, both configurable per-facility.

@@ -28,19 +28,29 @@ experiment:
 packaging:
   emit_bundle: true
   push_image: true
-  registry: ghcr.io/davidolsson
+  # Must match the identity your `gh`/docker-login credentials actually
+  # authenticate as — a mismatch here means pushes silently target an
+  # account you can't write to. Confirm with `gh auth status` before relying
+  # on this.
+  registry: ghcr.io/CHANGE_ME
 
 surfaces:
   gist: { enabled: true, auto: true }
-  blog: { target: scsiwyg, auto: true }
+  # `enabled` is the master switch — false skips scsiwyg entirely (no
+  # blog_* output fields written, no scsiwyg calls made). `auto` only
+  # matters when enabled is true: true publishes immediately, false drafts.
+  blog: { enabled: true, target: scsiwyg, auto: true }
   work_state: { enabled: true }
 
 durability:
   # Locked decision: github private mirror. Set the remote URL before relying on
-  # the mirror — leave null until the user creates the private repo.
+  # the mirror — leave null until the user creates the private repo. Once set,
+  # forge-orchestrator commits + pushes ~/forge to this remote at the end of
+  # every walk (added 2026-09-20 — previously nothing synced this, ever).
   mirror:
     kind: github
-    remote: null  # e.g. git@github.com:davidolsson/forge-mirror.git
+    remote: null  # e.g. https://github.com/<you>/forge-mirror.git
+    branch: main
 
 secrets:
   store: sops-age

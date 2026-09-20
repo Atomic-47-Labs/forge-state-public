@@ -14,10 +14,13 @@ fi
 echo "forge test-run (dry): root=$ROOT"
 echo
 echo "Invoke from inside a Claude Code session with:"
-echo "    /forge-orchestrator --once --dry-run"
+echo "    /forge-state:forge-orchestrator --once --dry-run"
 echo
-echo "Or run via the headless CLI vehicle (spec §14):"
-echo "    claude --skill forge-orchestrator --args '--once --dry-run'"
+echo "Or run via the headless CLI vehicle (spec §14; verified 2026-09-20 —"
+echo "there is no --skill/--args flag, the skill is invoked by naming it in"
+echo "the prompt text):"
+echo "    claude --print --allow-dangerously-skip-permissions --add-dir ~/forge \\"
+echo "      'Run /forge-state:forge-orchestrator --once --dry-run'"
 echo
 echo "Pre-flight facility check:"
 ls -la "$ROOT" || true

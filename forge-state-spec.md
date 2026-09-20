@@ -387,3 +387,67 @@ All outputs pass a secret scrub before they leave the host.
 7. **forge-orchestrator + trigger** — nightly walk, lockfile, budget, `--once`.
 
 Prove the path with `--once` on three to five repos before enabling the timer. Do not automate an unproven build path.
+
+---
+
+## 20. Addendum — 2026-09-20 real-Docker audit
+
+§18's open decisions are now locked (durability: private GitHub mirror,
+`worksona/forge-mirror`; blog auto-publish: disabled via
+`surfaces.blog.enabled: false`, not just held-as-draft; facility location:
+`~/forge/` visible + `state/` machinery, confirmed). This was also the
+first time the facility ran **real** Docker builds — every prior published
+experiment (EXP-0001 through EXP-0021, and EXP-0022/0023/0024/0025 before
+this audit) had a structural-only build claim, reasoned about rather than
+executed. Real execution surfaced several gaps this spec and the skill
+suite had carried since v0.1:
+
+- **No skill ever synced the durability mirror.** §16 describes it in prose
+  but no procedure implemented it. Fixed: `forge-orchestrator` now commits
+  and pushes `~/forge` to `durability.mirror.remote` as its last step,
+  every walk. It is the only skill permitted to touch that git state.
+- **`schemas/experiment.schema.yaml` rejected every real record the
+  facility had ever produced** (`additionalProperties: false`, `repo.host`
+  required despite 0/25 real records using it, narrow enums that didn't
+  include real terminal states like `not-applicable` or
+  `skipped-by-config`). The schema had clearly never actually gated a
+  write. Fixed: rewritten as a permissive documentation-of-invariants
+  schema (`additionalProperties: true`, only the truly universal fields
+  required), moved into `plugin/schemas/` so it actually ships with the
+  installed plugin (the old top-level `schemas/` never did).
+- **`forge-state/SKILL.md` pointed at a broken, machine-specific absolute
+  path** for the schema files (missing a path segment, and not portable to
+  any other install). Fixed to resolve relative to the skill's own base
+  directory instead.
+- **`forge-harvester-slack` hardcoded a dead Slack MCP server id.** Fixed
+  to discover whatever Slack MCP tools are actually available in the
+  running environment, with a documented no-op fallback if none are.
+- **`forge-packager/SKILL.md` had a duplicated, drifted-apart `## Procedure`
+  section** (a merge artifact) and hardcoded `ghcr.io/davidolsson` /
+  `worksona` account names that didn't match each other. Fixed: one
+  procedure, registry/account read from manifest + `gh auth status` at
+  runtime.
+- **`forge-builder`'s classifier had two real false-negative gaps**: no
+  detection for conda-only Python repos (environment.yml, no
+  requirements.txt — produces a meaningless generic pip failure instead of
+  the real finding "not pip-installable"), and no per-repo engine-version
+  pinning (a repo requiring Node ≥22 built against the manifest's default
+  node:20 and failed for a reason that had nothing to do with the repo's
+  actual health). Both fixed.
+- **No skill stated an out-of-scope boundary.** During this same audit, an
+  agent tasked narrowly with running real Docker builds instead did
+  unrelated git/mirror work — twice, once even after being told to stop —
+  because nothing in any skill's text said that wasn't its job. Every
+  worker skill now states explicitly that `forge-orchestrator`'s mirror
+  sync and `forge-packager`'s promote-to-repo step are the *only* git/gh
+  activity anywhere in the suite.
+- **Phase/artifact bookkeeping can drift silently.** Four real experiments
+  had complete `research.md`/`report.md` but `phase` stuck at `candidate`
+  for months — not a real backlog, just bookkeeping that never got
+  updated. `forge-orchestrator`'s queue-build step now reconciles `phase`
+  against artifact presence before trusting it.
+
+None of this was visible from reading the spec or the skills in isolation —
+it only surfaced by actually running the pipeline for real. Re-validate any
+future "structural-only" claim in this facility's history the same way
+before treating it as settled.

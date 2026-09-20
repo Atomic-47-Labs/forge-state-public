@@ -42,7 +42,26 @@ The trigger is the reaction, not the post (spec §8). David marks a project post
 
 ## Tools
 
-- Slack MCP: `mcp__42fdfc76-53f7-4a18-a3a3-22debdcc41c9__slack_read_channel`, `slack_get_reactions`, `slack_read_user_profile`.
+- Slack MCP: whichever Slack MCP server is configured in the current
+  environment — tool names are namespaced by that server's install id and
+  **will differ across machines and reinstalls** (e.g.
+  `mcp__claude_ai_Slack__slack_read_channel` on one setup,
+  `mcp__<uuid>__slack_read_channel` on another). Do not hardcode a specific
+  server id in this file or in code that calls it — discover the actual
+  tool names available in the current session (e.g. via `ToolSearch` or the
+  tool listing) and use whichever ones expose channel reads, reactions, and
+  user profile lookups. A hardcoded id here was found broken/dead during
+  the 2026-09-20 audit — it belonged to a Slack MCP install that no longer
+  matches this environment's tool names, meaning the harvester step would
+  have hard-failed on every real nightly run.
+
+## Fallback when no Slack MCP is reachable
+
+If no Slack tool resolves in the current environment: skip the harvest step,
+leave the cursor untouched, and emit a single activity event
+`{op: harvest, status: skipped, reason: no-slack-mcp}` rather than failing
+the whole nightly walk. Existing `candidate`-phase records still process
+normally — the only thing skipped is new intake from Slack.
 
 ## Error handling
 

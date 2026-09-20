@@ -98,6 +98,12 @@ description: Use when a forge experiment is at phase `packaged` (success path) o
 
 - Missing required block → render the section as "(not available — <reason>)" rather than fail. The report is itself the artifact; partial is better than absent.
 
+## Out of scope
+
+This skill only writes `report.md` and the `report` block via `forge-state`.
+It never touches git/gh in any way — not even the gist (that's
+`forge-publisher`'s job, one phase later).
+
 ## References
 
 - Spec §2.5, §6 (lifecycle — both phases converge on reported), §12.

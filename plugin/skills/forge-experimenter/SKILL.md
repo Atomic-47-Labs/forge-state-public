@@ -76,6 +76,14 @@ The artifact's lifetime success criterion is **a future reader can pip-install /
 - Timeout inside template → terminate, record partial observations.
 - Network needed beyond registries-only → record `result: failed` with reason; do not weaken egress policy.
 
+## Out of scope
+
+This skill's own git activity is limited to staging deploy-bundle files
+under `experiments/EXP-NNNN-<slug>/deploy/` for the packager to find — it
+never runs `git init`/`commit`/`push` itself, never touches `~/forge`'s own
+repo state, and never creates a GitHub repo (that's `forge-packager`'s job,
+gated by the promote-to-repo decision).
+
 ## References
 
 - Spec §10 (experiment taxonomy), §2.4 (isolation), §9 (sandbox), §6 (lifecycle).

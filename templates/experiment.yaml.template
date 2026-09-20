@@ -1,3 +1,9 @@
+# Minimal starting skeleton — matches plugin/schemas/experiment.schema.yaml,
+# which documents commonly-used fields but only strictly requires
+# id/slug/phase/source/repo. Add whatever else a given experiment needs
+# (research/build/experiment/packaging/report/outputs/notes); the schema is
+# permissive by design (2026-09-20 audit: a stricter version rejected every
+# real record the facility had ever produced).
 id: EXP-XXXX
 slug: project-slug
 phase: candidate
@@ -14,7 +20,8 @@ source:
 
 repo:
   url: https://example.invalid/owner/repo
-  host: github
+  owner: owner
+  name: repo
   ref: null
   commit: null
   license: null
@@ -22,12 +29,11 @@ repo:
 research: null
 build: null
 experiment: null
-package: null
+packaging: null
 report: null
 
 outputs:
   gist_url: null
-  blog_post_id: null
   blog_status: draft
 
 events_emitted: []

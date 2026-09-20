@@ -32,12 +32,13 @@ The host hands a repo + commands to a fresh Docker container. The container buil
 1. `forge-state read` the EXP record.
 2. Clone `repo.url` shallow to `/tmp/forge/<EXP-id>/`; record `git rev-parse HEAD` as `repo.commit`.
 3. **Classify language and type** (used by sandbox image picker and §10 experiment taxonomy):
-   - Files: `package.json` → node; `pyproject.toml`/`requirements.txt` → python; `go.mod` → go; `Cargo.toml` → rust; else generic.
+   - Files: `package.json` → node; `pyproject.toml`/`requirements.txt` → python; `environment.yml`/`environment*.yml` with **no** `requirements.txt`/`pyproject.toml`/`setup.py` → **python-conda-only** (2026-09-20 finding, EXP-0022: attempting `pip install` here is not a real test — it fails for a reason unrelated to the repo's actual health, since the repo was never meant to be pip-installed. Record `build.reason: conda-only-not-pip-installable` and don't spend more than the one confirming attempt on it); `go.mod` → go; `Cargo.toml` → rust; else generic.
    - Type: `bin/` + argparse/clap → cli; package manifest only → library; dev-server script → webapp; MCP SDK dep → mcp; `Dockerfile` + port bind → service; notebook/weights → model.
-4. Pick base image from `manifest.sandbox.base_images[lang]`; record digest via `docker pull` + `docker inspect`.
+   - **Version pinning** (2026-09-20 finding, EXP-0024: chatbox needs Node ≥22.12, manifest default was node:20 — a real, avoidable false-negative). Before picking a base image tag, check the repo's own version constraint: `package.json engines.node` for node, `python_requires` in `pyproject.toml`/`setup.py` for python, `go.mod`'s `go` directive for go, `rust-version` in `Cargo.toml` for rust. If the repo declares a constraint the manifest's default tag doesn't satisfy, use a tag that does (same major image family, e.g. `node:22` instead of `node:20`) and record which tag was actually used and why in `build.sandbox`. Only fall back to the manifest default if the repo declares no constraint.
+4. Pick base image from `manifest.sandbox.base_images[lang]`, adjusted per the version-pinning check above; record digest via `docker pull` + `docker inspect`.
 5. Compose build commands per language:
-   - node: `npm ci || npm install && npm run build || true`
-   - python: `pip install -r requirements.txt || pip install -e .`
+   - node: `npm ci || npm install && npm run build || true` (or the repo's declared package manager + lockfile — e.g. `pnpm install --frozen-lockfile` when `pnpm-lock.yaml`/`packageManager` is present; don't force npm on a pnpm/yarn project)
+   - python: `pip install -r requirements.txt || pip install -e .` — skip entirely for `python-conda-only` classification above and go straight to recording the finding
    - go: `go build ./...`
    - rust: `cargo build --release`
    - generic: `make || ./configure && make || true`
@@ -55,6 +56,18 @@ The host hands a repo + commands to a fresh Docker container. The container buil
 - Per-repo timeout exceeded → terminate container, set `status: build-failed` with `failure.reason: timeout`.
 - Image pull failure → record as `build-failed` (`failure.reason: image_pull`) — this is itself a finding.
 
+## Out of scope
+
+This skill's only writes are to `experiments/EXP-NNNN-<slug>/build/` and the
+`experiment.yaml` record via `forge-state`. It never runs `git init`,
+`git commit`, `git push`, or `gh repo create` against anything — not the
+cloned repo (which lives in an ephemeral `/tmp` path and is discarded), not
+`~/forge`, not the durability mirror. If the acting agent finds itself
+reaching for a git/gh command while doing builder work, that's a sign the
+task has drifted out of this skill's scope — stop and hand back to the
+orchestrator rather than improvising.
+
 ## References
 
 - Spec §2.4 (two-plane isolation), §2.5 (build-failed terminal-with-findings), §9 (sandbox), §10 (taxonomy classification belongs to builder).
+- 2026-09-20 real-Docker proof run: added conda-only detection (EXP-0022) and engine-version pinning (EXP-0024) after both caused avoidable false-negative build-failed results.
